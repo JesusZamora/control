@@ -5,6 +5,16 @@
  */
 package control;
 
+import java.io.File;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jesus Ariel
@@ -16,6 +26,16 @@ public class equipo extends javax.swing.JFrame {
      */
     public equipo() {
         initComponents();
+    }
+    
+        void limpiar(){
+        idEquipo.setText("");
+        nomEquipo.setText("");
+        descEquipo.setText("");
+        marcaEqui.setText("");
+        obsEquipo.setText("");
+        //num_lib.setText("");
+
     }
 
     /**
@@ -35,12 +55,13 @@ public class equipo extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
+        idEquipo = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
+        obsEquipo = new javax.swing.JTextArea();
+        nomEquipo = new javax.swing.JTextField();
+        descEquipo = new javax.swing.JTextField();
+        marcaEqui = new javax.swing.JTextField();
+        imaEquipo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -75,17 +96,27 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
-        jTextField1.setText("jTextField1");
+        idEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idEquipoActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        obsEquipo.setColumns(20);
+        obsEquipo.setRows(5);
+        jScrollPane1.setViewportView(obsEquipo);
 
-        jTextField2.setText("jTextField2");
+        descEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descEquipoActionPerformed(evt);
+            }
+        });
 
-        jTextField3.setText("jTextField3");
-
-        jTextField4.setText("jTextField4");
+        marcaEqui.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                marcaEquiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,15 +134,21 @@ public class equipo extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(70, 70, 70)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
+                            .addComponent(nomEquipo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(descEquipo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(marcaEqui, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addGap(38, 38, 38))
+                            .addComponent(idEquipo))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButton3))
+                            .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(435, Short.MAX_VALUE)
+                        .addContainerGap(536, Short.MAX_VALUE)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2)))
@@ -124,23 +161,28 @@ public class equipo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(nomEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(descEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(marcaEqui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
@@ -153,6 +195,37 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+            conectar cc = new conectar(); // Llamar al objeto conectar 
+            Connection cn = cc.conexion();//creamos la variable conexion con el metodo conexion 
+            String idEqui, nomEqui, descEqui, marcEqui, obsEqui;   //se crean variables temporales para guardar lo qe se iene en cajas
+            String sql = "";        //variale para sentencia sql
+            idEqui = idEquipo.getText(); // para obtener lo que tiene cada caja de texto
+            nomEqui = nomEquipo.getText();
+            descEqui = descEquipo.getText();
+            marcEqui = marcaEqui.getText();
+            obsEqui = obsEquipo.getText();
+            //fotoEqui = fotoEquipo.getImage();
+            
+            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo) VALUES (?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
+            try {
+            PreparedStatement pst = cn.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
+            pst.setString(1,idEqui);
+            pst.setString(2,nomEqui);
+            pst.setString(3,descEqui);
+            pst.setString(4,marcEqui);
+            pst.setString(5,obsEqui);
+            //pst.setString(6,num);
+
+            int n=pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
+            if (n>0) {   // si no esta vacio entonces 
+                JOptionPane.showMessageDialog(null, "Equipo registrado con exito");
+                limpiar(); 
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(equipo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "ERROR: verifique los datos");
+        }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -164,7 +237,27 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        JFileChooser imaEquipo = new JFileChooser();
+        int ventana = imaEquipo.showOpenDialog(null);
+        if (ventana == JFileChooser.APPROVE_OPTION)
+        {
+            File file = imaEquipo.getSelectedFile();
+            
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void descEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descEquipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_descEquipoActionPerformed
+
+    private void marcaEquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaEquiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_marcaEquiActionPerformed
+
+    private void idEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idEquipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idEquipoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,6 +295,9 @@ public class equipo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField descEquipo;
+    private javax.swing.JTextField idEquipo;
+    private javax.swing.JLabel imaEquipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -211,10 +307,8 @@ public class equipo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField marcaEqui;
+    private javax.swing.JTextField nomEquipo;
+    private javax.swing.JTextArea obsEquipo;
     // End of variables declaration//GEN-END:variables
 }
