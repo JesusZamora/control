@@ -5,6 +5,7 @@
  */
 package control;
 
+import java.awt.Image;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,8 +13,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.stage.FileChooser;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -62,6 +65,7 @@ public class equipo extends javax.swing.JFrame {
         descEquipo = new javax.swing.JTextField();
         marcaEqui = new javax.swing.JTextField();
         imaEquipo = new javax.swing.JLabel();
+        nomFoto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +122,12 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
+        nomFoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nomFotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,18 +147,20 @@ public class equipo extends javax.swing.JFrame {
                     .addComponent(marcaEqui, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(idEquipo)
                     .addComponent(jScrollPane1))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
-                            .addComponent(jButton3))
-                        .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(96, 96, 96)
+                        .addGap(114, 114, 114)
                         .addComponent(jButton1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(nomFoto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3))
+                            .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -158,12 +170,13 @@ public class equipo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jButton3)
-                    .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nomFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, Short.MAX_VALUE)
+                        .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton1)
                             .addComponent(jButton2))
@@ -204,7 +217,7 @@ public class equipo extends javax.swing.JFrame {
             obsEqui = obsEquipo.getText();
             //fotoEqui = fotoEquipo.getImage();
             
-            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo) VALUES (?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
+            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo, equipoActivo, nomFoto, foto) VALUES (?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
             try {
             PreparedStatement pst = cn.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
             pst.setString(1,idEqui);
@@ -235,14 +248,34 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        JFileChooser imaEquipo = new JFileChooser();
-        int ventana = imaEquipo.showOpenDialog(null);
+        //Creamos nuestra variable archivo en la cual podremos usar todos los metodos de la clase jFileChooser        
+        JFileChooser imaEquip = new JFileChooser();
+        //Si deseamos crear filtros para la selecion de archivos
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Imagen", "jpg","jpeg, png, tif, bmp");
+        // Agregamos el Filtro pero cuidado se mostrara despues de todos los archivos
+        imaEquip.addChoosableFileFilter(filtro);
+        // Colocamos titulo a nuestra ventana de Seleccion
+        imaEquip.setDialogTitle("Abrir Foto del Equipo");
+        //Si deseamos que muestre una carpeta predetermina usa la siguiente linea
+        File ruta = new File("D:/productos");
+        //Le implementamos a nuestro ventana de seleccion
+        imaEquip.setCurrentDirectory(ruta);
+        //Abrimos nuestra Ventana de Selccion
+        int ventana = imaEquip.showOpenDialog(null);
+       //hacemos comparacion en caso de aprete el boton abrir
         if (ventana == JFileChooser.APPROVE_OPTION)
         {
-            File file = imaEquipo.getSelectedFile();
-            
+            //Obtenemos la ruta de nuestra imagen seleccionada 
+            File file = imaEquip.getSelectedFile();
+            //Lo imprimimos en una caja de texto para ver su ruta
+            nomFoto.setText(String.valueOf(file));
+            //de cierto modo necesitamos tener la imagen para ello debemos conocer la ruta de dicha imagen
+            Image foto = getToolkit().getImage(nomFoto.getText());
+            //Le damos dimension a nuestro label que tendra la imagen
+            foto = foto.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+            //Imprimimos la imagen en el label
+            imaEquipo.setIcon(new ImageIcon(foto));
         }
-        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void descEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descEquipoActionPerformed
@@ -256,6 +289,10 @@ public class equipo extends javax.swing.JFrame {
     private void idEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idEquipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idEquipoActionPerformed
+
+    private void nomFotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nomFotoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nomFotoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -307,6 +344,7 @@ public class equipo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField marcaEqui;
     private javax.swing.JTextField nomEquipo;
+    private javax.swing.JTextField nomFoto;
     private javax.swing.JTextArea obsEquipo;
     // End of variables declaration//GEN-END:variables
 }
