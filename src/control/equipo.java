@@ -7,6 +7,8 @@ package control;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -37,6 +39,8 @@ public class equipo extends javax.swing.JFrame {
         descEquipo.setText("");
         marcaEqui.setText("");
         obsEquipo.setText("");
+        nomFoto.setText("");
+        imaEquipo.setIcon(null);
         //num_lib.setText("");
 
     }
@@ -66,6 +70,8 @@ public class equipo extends javax.swing.JFrame {
         marcaEqui = new javax.swing.JTextField();
         imaEquipo = new javax.swing.JLabel();
         nomFoto = new javax.swing.JTextField();
+        Categoria = new javax.swing.JComboBox();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,19 +134,37 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Computación", "Iluminación", "Tramoya", "Cámara Óptica", "Inmobiliario", "Sonido" }));
+        Categoria.setToolTipText("");
+        Categoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CategoriaActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Categoría");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(70, 70, 70)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(nomEquipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                     .addComponent(descEquipo, javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,7 +220,12 @@ public class equipo extends javax.swing.JFrame {
                             .addComponent(marcaEqui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
@@ -208,25 +237,34 @@ public class equipo extends javax.swing.JFrame {
         // TODO add your handling code here:
             conectar cc = new conectar(); // Llamar al objeto conectar 
             Connection cn = cc.conexion();//creamos la variable conexion con el metodo conexion 
-            String idEqui, nomEqui, descEqui, marcEqui, obsEqui;   //se crean variables temporales para guardar lo qe se iene en cajas
+            String equiActivo;
+            FileInputStream archivoFoto;   //se crean variables temporales para guardar lo qe se iene en cajas
             String sql = "";        //variale para sentencia sql
-            idEqui = idEquipo.getText(); // para obtener lo que tiene cada caja de texto
-            nomEqui = nomEquipo.getText();
-            descEqui = descEquipo.getText();
-            marcEqui = marcaEqui.getText();
-            obsEqui = obsEquipo.getText();
-            //fotoEqui = fotoEquipo.getImage();
+            equiActivo = "activo";
+            System.out.println("Hola");
+            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo, equipoActivo, nomFoto, foto, Categoria)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
             
-            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo, equipoActivo, nomFoto, foto) VALUES (?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
             try {
+            
             PreparedStatement pst = cn.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
-            pst.setString(1,idEqui);
-            pst.setString(2,nomEqui);
-            pst.setString(3,descEqui);
-            pst.setString(4,marcEqui);
-            pst.setString(5,obsEqui);
+            pst.setString(1,idEquipo.getText());
+            pst.setString(2,nomEquipo.getText());
+            pst.setString(3,descEquipo.getText());
+            pst.setString(4,marcaEqui.getText());
+            pst.setString(5,obsEquipo.getText());
+            pst.setString(6,equiActivo);
+            pst.setString(7,nomFoto.getText());
+            archivoFoto = new FileInputStream(nomFoto.getText());
+            pst.setBinaryStream(8, archivoFoto);
+            Object cat = Categoria.getSelectedItem();
+            String cate = String.valueOf(cat);
+            pst.setString(9,cate);
+            
+            
+            
             //pst.setString(6,num);
-
+            System.out.println(pst);
             int n=pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
             if (n>0) {   // si no esta vacio entonces 
                 JOptionPane.showMessageDialog(null, "Equipo registrado con exito");
@@ -236,6 +274,8 @@ public class equipo extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(equipo.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "ERROR: verifique los datos");
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(equipo.class.getName()).log(Level.SEVERE, null, ex);
         }  
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -294,6 +334,10 @@ public class equipo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomFotoActionPerformed
 
+    private void CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CategoriaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,6 +374,7 @@ public class equipo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox Categoria;
     private javax.swing.JTextField descEquipo;
     private javax.swing.JTextField idEquipo;
     private javax.swing.JLabel imaEquipo;
@@ -341,6 +386,7 @@ public class equipo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField marcaEqui;
     private javax.swing.JTextField nomEquipo;

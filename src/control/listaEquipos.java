@@ -5,6 +5,11 @@
  */
 package control;
 
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Jesus Ariel
@@ -17,6 +22,7 @@ public class listaEquipos extends javax.swing.JFrame {
     public listaEquipos() {
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,7 +36,7 @@ public class listaEquipos extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabEquipo = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -52,18 +58,7 @@ public class listaEquipos extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Id Equipo", "Equipo", "Descripción", "Activo/Inactivo", "Prestar",
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabEquipo);
 
         jButton1.setText("Crear Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -95,40 +90,37 @@ public class listaEquipos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton4)
-                        .addGap(11, 11, 11)
+                        .addGap(37, 37, 37)
                         .addComponent(jButton5))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 478, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
                         .addComponent(jButton1)
-                        .addGap(27, 27, 27)
+                        .addGap(76, 76, 76)
                         .addComponent(jButton2)
-                        .addGap(15, 15, 15)
+                        .addGap(57, 57, 57)
                         .addComponent(jButton3)
-                        .addGap(31, 31, 31)
+                        .addGap(61, 61, 61)
                         .addComponent(jButton6)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(71, 71, 71))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
                 .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
                 .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
+                    .addComponent(jButton1)
                     .addComponent(jButton3)
                     .addComponent(jButton6))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -194,10 +186,8 @@ public class listaEquipos extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new listaEquipos().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new listaEquipos().setVisible(true);
         });
     }
 
@@ -209,7 +199,35 @@ public class listaEquipos extends javax.swing.JFrame {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabEquipo;
     // End of variables declaration//GEN-END:variables
+
+    public void iniciar()
+    {
+        conectar cc = new conectar(); // Llamar al objeto conectar 
+        Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+        
+        DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
+
+        try{
+        String sql = "select * from equipo;";
+            try (CallableStatement cmd = con.prepareCall(sql)) {
+                ResultSet rs = cmd.executeQuery();
+                while (rs.next()) {
+                    Object[] datos = new Object[4];
+                    for (int i=0; i<=3; i++){
+                        datos [i] = rs.getString(i+1);
+                    }
+                    Modelo.addRow(datos);
+                }   }
+        con.close();
+    }catch(Exception ex){
+        System.out.println(ex.getMessage());
+    }
+        
+    }
+
+
+
 }
 
