@@ -133,27 +133,27 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Id Equipo"/>
+        <Property name="text" type="java.lang.String" value="Id Equipo :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nombre del Equipo"/>
+        <Property name="text" type="java.lang.String" value="Nombre del Equipo :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n del Equipo"/>
+        <Property name="text" type="java.lang.String" value="Descripci&#xf3;n del Equipo :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Observaciones"/>
+        <Property name="text" type="java.lang.String" value="Observaciones :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Marca"/>
+        <Property name="text" type="java.lang.String" value="Marca :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
@@ -240,7 +240,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Categor&#xed;a"/>
+        <Property name="text" type="java.lang.String" value="Categor&#xed;a :"/>
       </Properties>
     </Component>
   </SubComponents>

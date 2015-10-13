@@ -5,10 +5,15 @@
  */
 package control;
 
+import com.sun.istack.internal.logging.Logger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -35,12 +40,12 @@ public class listaEquipos extends javax.swing.JFrame {
 
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabEquipo = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabEquipo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,8 +62,6 @@ public class listaEquipos extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-
-        jScrollPane1.setViewportView(tabEquipo);
 
         jButton1.setText("Crear Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -83,44 +86,73 @@ public class listaEquipos extends javax.swing.JFrame {
             }
         });
 
+        tabEquipo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Id Equipo", "Nombre del Equipo", "Decripción", "Marca", "Equipo Activo/Inactivo", "Seleccionar "
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabEquipo);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(37, 37, 37)
-                        .addComponent(jButton5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(76, 76, 76)
-                        .addComponent(jButton2)
-                        .addGap(57, 57, 57)
-                        .addComponent(jButton3)
-                        .addGap(61, 61, 61)
-                        .addComponent(jButton6)))
-                .addGap(71, 71, 71))
+                .addComponent(jButton4)
+                .addGap(37, 37, 37)
+                .addComponent(jButton5))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(70, 70, 70)
+                .addComponent(jButton1)
+                .addGap(137, 137, 137)
+                .addComponent(jButton2)
+                .addGap(135, 135, 135)
+                .addComponent(jButton3)
+                .addGap(121, 121, 121)
+                .addComponent(jButton6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(11, 11, 11)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton4)
                     .addComponent(jButton5))
-                .addGap(47, 47, 47)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
+                .addGap(26, 26, 26)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
+                    .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton6))
-                .addGap(21, 21, 21))
+                .addGap(32, 32, 32))
         );
 
         pack();
@@ -134,7 +166,9 @@ public class listaEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+            nuevoReporte IE= new nuevoReporte();
+            IE.setVisible(true);
+            dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -198,7 +232,7 @@ public class listaEquipos extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabEquipo;
     // End of variables declaration//GEN-END:variables
 
@@ -206,7 +240,6 @@ public class listaEquipos extends javax.swing.JFrame {
     {
         conectar cc = new conectar(); // Llamar al objeto conectar 
         Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
-        
         DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
 
         try{
@@ -223,8 +256,7 @@ public class listaEquipos extends javax.swing.JFrame {
         con.close();
     }catch(Exception ex){
         System.out.println(ex.getMessage());
-    }
-        
+    }      
     }
 
 

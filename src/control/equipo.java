@@ -75,15 +75,15 @@ public class equipo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Id Equipo");
+        jLabel1.setText("Id Equipo :");
 
-        jLabel2.setText("Nombre del Equipo");
+        jLabel2.setText("Nombre del Equipo :");
 
-        jLabel3.setText("Descripción del Equipo");
+        jLabel3.setText("Descripción del Equipo :");
 
-        jLabel4.setText("Observaciones");
+        jLabel4.setText("Observaciones :");
 
-        jLabel5.setText("Marca");
+        jLabel5.setText("Marca :");
 
         jButton1.setText("Guardar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +142,7 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Categoría");
+        jLabel6.setText("Categoría :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
