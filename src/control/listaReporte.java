@@ -54,15 +54,23 @@ public class listaReporte extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id Reporte", "Solicitante", "Prestador", "Fecha de Prestamo"
+                "Id Reporte", "Solicitante", "Prestador", "Fecha de Prestamo", "Nombre Proyecto"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("Visualizar/Modificar");
@@ -89,7 +97,7 @@ public class listaReporte extends javax.swing.JFrame {
                             .addGap(72, 72, 72)
                             .addComponent(jButton3))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jScrollPane1)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
                             .addGap(14, 14, 14)))))
         );
         layout.setVerticalGroup(
@@ -98,7 +106,7 @@ public class listaReporte extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(pPrincipal)
                 .addGap(17, 17, 17)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)

@@ -29,6 +29,10 @@ public class equipo extends javax.swing.JFrame {
     /**
      * Creates new form equipo
      */
+    public equipo(String ide) {
+        initComponents();
+        System.out.print(ide);
+    }
     public equipo() {
         initComponents();
     }
@@ -36,12 +40,13 @@ public class equipo extends javax.swing.JFrame {
         void limpiar(){
         idEquipo.setText("");
         nomEquipo.setText("");
-        descEquipo.setText("");
+        descEqui.setText("");
         marcaEqui.setText("");
-        obsEquipo.setText("");
         nomFoto.setText("");
         imaEquipo.setIcon(null);
-        //num_lib.setText("");
+        historial.setText("");
+        accesorios.setText("");
+        
 
     }
 
@@ -54,24 +59,35 @@ public class equipo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
+        jScrollBar1 = new javax.swing.JScrollBar();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         idEquipo = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        obsEquipo = new javax.swing.JTextArea();
         nomEquipo = new javax.swing.JTextField();
-        descEquipo = new javax.swing.JTextField();
         marcaEqui = new javax.swing.JTextField();
         imaEquipo = new javax.swing.JLabel();
         nomFoto = new javax.swing.JTextField();
         Categoria = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        accesorios = new javax.swing.JTextArea();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        historial = new javax.swing.JTextArea();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        descEqui = new javax.swing.JTextArea();
+
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane3.setViewportView(jTextArea2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,8 +96,6 @@ public class equipo extends javax.swing.JFrame {
         jLabel2.setText("Nombre del Equipo :");
 
         jLabel3.setText("Descripción del Equipo :");
-
-        jLabel4.setText("Observaciones :");
 
         jLabel5.setText("Marca :");
 
@@ -112,16 +126,6 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
-        obsEquipo.setColumns(20);
-        obsEquipo.setRows(5);
-        jScrollPane1.setViewportView(obsEquipo);
-
-        descEquipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descEquipoActionPerformed(evt);
-            }
-        });
-
         marcaEqui.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 marcaEquiActionPerformed(evt);
@@ -134,7 +138,7 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Computación", "Iluminación", "Tramoya", "Cámara Óptica", "Inmobiliario", "Sonido" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Inmobiliario", "Óptica", "Sonido", "Tramoya" }));
         Categoria.setToolTipText("");
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,90 +148,125 @@ public class equipo extends javax.swing.JFrame {
 
         jLabel6.setText("Categoría :");
 
+        jLabel7.setText("Accesorios del Equipo :");
+
+        accesorios.setColumns(20);
+        accesorios.setRows(5);
+        jScrollPane2.setViewportView(accesorios);
+
+        historial.setColumns(20);
+        historial.setRows(5);
+        jScrollPane4.setViewportView(historial);
+
+        jLabel8.setText("Historial :");
+
+        descEqui.setColumns(20);
+        descEqui.setRows(5);
+        jScrollPane6.setViewportView(descEqui);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(nomEquipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                    .addComponent(descEquipo, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(marcaEqui, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(idEquipo)
-                    .addComponent(jScrollPane1))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(114, 114, 114)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(nomFoto)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton3))
-                            .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(33, 33, 33))
+                                .addGap(29, 29, 29)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel7)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(nomEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(marcaEqui, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                    .addComponent(Categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane6)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(nomFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton3))
+                        .addComponent(imaEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton3)
-                    .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nomFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(imaEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
-                            .addComponent(jButton2))
-                        .addGap(33, 33, 33))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(nomEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(descEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(marcaEqui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
                                 .addGap(26, 26, 26)
-                                .addComponent(jLabel6)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nomFoto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton3)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(idEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(imaEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(nomEquipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2))
+                                .addGap(18, 25, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(marcaEqui, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel5))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))))
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8))
+                        .addGap(17, 17, 17))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,24 +281,27 @@ public class equipo extends javax.swing.JFrame {
             String sql = "";        //variale para sentencia sql
             equiActivo = "activo";
             System.out.println("Hola");
-            sql="INSERT INTO equipo (idEquipo, nomEquipo, descEquipo, marcaEquipo, obsEquipo, equipoActivo, nomFoto, foto, Categoria)"
-                    + " VALUES (?,?,?,?,?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
+            sql="INSERT INTO equipo (idEquipo, nomEquipo, marcaEquipo, accesorios, descEquipo, historial, equipoActivo, Categoria, nomFoto, foto)"
+                    + " VALUES (?,?,?,?,?,?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
             
             try {
             
-            PreparedStatement pst = cn.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
+            PreparedStatement pst = cn.prepareStatement(sql);
+            
             pst.setString(1,idEquipo.getText());
             pst.setString(2,nomEquipo.getText());
-            pst.setString(3,descEquipo.getText());
-            pst.setString(4,marcaEqui.getText());
-            pst.setString(5,obsEquipo.getText());
-            pst.setString(6,equiActivo);
-            pst.setString(7,nomFoto.getText());
-            archivoFoto = new FileInputStream(nomFoto.getText());
-            pst.setBinaryStream(8, archivoFoto);
+            pst.setString(3,marcaEqui.getText());
+            pst.setString(4,accesorios.getText());
+            pst.setString(5,descEqui.getText());
+            pst.setString(6,historial.getText());
+            pst.setString(7,equiActivo);
             Object cat = Categoria.getSelectedItem();
             String cate = String.valueOf(cat);
-            pst.setString(9,cate);
+            pst.setString(8,cate);
+            pst.setString(9,nomFoto.getText());
+            archivoFoto = new FileInputStream(nomFoto.getText());
+            pst.setBinaryStream(10, archivoFoto);
+
             
             
             
@@ -281,7 +323,7 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        listaEquipos IE= new listaEquipos();
+        ListaEquiUsua IE= new ListaEquiUsua();
         IE.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -291,13 +333,13 @@ public class equipo extends javax.swing.JFrame {
         //Creamos nuestra variable archivo en la cual podremos usar todos los metodos de la clase jFileChooser        
         JFileChooser imaEquip = new JFileChooser();
         //Si deseamos crear filtros para la selecion de archivos
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Imagen", "jpg","jpeg, png, tif, bmp");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Imagen", "jpg, jpeg, png, tif, bmp");
         // Agregamos el Filtro pero cuidado se mostrara despues de todos los archivos
         imaEquip.addChoosableFileFilter(filtro);
         // Colocamos titulo a nuestra ventana de Seleccion
         imaEquip.setDialogTitle("Abrir Foto del Equipo");
         //Si deseamos que muestre una carpeta predetermina usa la siguiente linea
-        File ruta = new File("D:/productos");
+        File ruta = new File("D:/Escritorio");
         //Le implementamos a nuestro ventana de seleccion
         imaEquip.setCurrentDirectory(ruta);
         //Abrimos nuestra Ventana de Selccion
@@ -317,10 +359,6 @@ public class equipo extends javax.swing.JFrame {
             imaEquipo.setIcon(new ImageIcon(foto));
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void descEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descEquipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_descEquipoActionPerformed
 
     private void marcaEquiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_marcaEquiActionPerformed
         // TODO add your handling code here:
@@ -375,7 +413,9 @@ public class equipo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Categoria;
-    private javax.swing.JTextField descEquipo;
+    private javax.swing.JTextArea accesorios;
+    private javax.swing.JTextArea descEqui;
+    private javax.swing.JTextArea historial;
     private javax.swing.JTextField idEquipo;
     private javax.swing.JLabel imaEquipo;
     private javax.swing.JButton jButton1;
@@ -384,13 +424,23 @@ public class equipo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JScrollBar jScrollBar1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField marcaEqui;
     private javax.swing.JTextField nomEquipo;
     private javax.swing.JTextField nomFoto;
-    private javax.swing.JTextArea obsEquipo;
     // End of variables declaration//GEN-END:variables
+
+public void modificar()
+{
+;
+}
 }
