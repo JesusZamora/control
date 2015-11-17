@@ -14,6 +14,7 @@ import sun.security.util.Password;
  */
 public class login extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form login
      */
@@ -33,7 +34,7 @@ public class login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        pass = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,9 +54,9 @@ public class login extends javax.swing.JFrame {
 
         jLabel1.setText("Entrar como Administrador :");
 
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                passActionPerformed(evt);
             }
         });
 
@@ -75,7 +76,7 @@ public class login extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPasswordField1)))
+                        .addComponent(pass)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -83,7 +84,7 @@ public class login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(191, 191, 191)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -96,30 +97,63 @@ public class login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-           listaReporte IE= new listaReporte();
-           IE.setVisible(true);
-           dispose();
+           //se crean dos variables las cuales van a tener los valores
+        String Contraseña="12345";
+        
+        //ahora se van a obtener los valores del jpassword y del jusuario xD
+        
+        String Pass=new String(pass.getPassword());//se debe convertir a string para hacer la validacion  lo del jpasword ****
+        
+        //ahora se hacen validaciones
+        //lo que se digite en usuario si es igual al usuario que tenemos admin 
+        if(Pass.equals(Contraseña)){
+            
+            //ahora ponemos el formulario que continua
+            listaReporte lr= new listaReporte();
+            lr.setVisible(true);
+            dispose();
+            JOptionPane.showMessageDialog(null, "Modo Administrador");
+        }
+        else{
+            //ahora ponemos el formulario que continua
+            listaReporteUsua lru = new listaReporteUsua();
+            lru.setVisible(true);
+            dispose();         
+            JOptionPane.showMessageDialog(null, "Modo Usuario");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-           
-        //if (si no te has logeado){
-           ListaEquiUsua IE= new ListaEquiUsua();
-           IE.setVisible(true);
-           dispose();
-           
-           /*}else
-                {
-                listaEquipos IE = new listaEquipos();
-                IE.setVisible(true);
-                dispose();
-                }*/
+        //se crean dos variables las cuales van a tener los valores
+        String Contraseña="12345";
+        
+        //ahora se van a obtener los valores del jpassword y del jusuario xD
+        
+        String Pass=new String(pass.getPassword());//se debe convertir a string para hacer la validacion  lo del jpasword ****
+        
+        //ahora se hacen validaciones
+        //lo que se digite en usuario si es igual al usuario que tenemos admin 
+        if(Pass.equals(Contraseña)){
+            
+            //ahora ponemos el formulario que continua
+            listaEquipos le= new listaEquipos();
+            le.setVisible(true);
+            dispose();
+            JOptionPane.showMessageDialog(null, "Modo Administrador");
+        }
+        else{
+            //ahora ponemos el formulario que continua
+            ListaEquiUsua leu = new ListaEquiUsua();
+            leu.setVisible(true);
+            dispose();         
+            JOptionPane.showMessageDialog(null, "Modo Usuario");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
         // TODO add your handling code here:
         
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_passActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,6 +192,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField jPasswordField1;
+    private javax.swing.JPasswordField pass;
     // End of variables declaration//GEN-END:variables
 }

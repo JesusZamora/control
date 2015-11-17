@@ -9,8 +9,10 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,6 +35,7 @@ public class equipo extends javax.swing.JFrame {
     public equipo(String ide) {
         initComponents();
         System.out.print(ide);
+        modificar(ide);
     }
     public equipo() {
         initComponents();
@@ -323,7 +327,7 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        ListaEquiUsua IE= new ListaEquiUsua();
+        listaEquipos IE= new listaEquipos();
         IE.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -439,8 +443,29 @@ public class equipo extends javax.swing.JFrame {
     private javax.swing.JTextField nomFoto;
     // End of variables declaration//GEN-END:variables
 
-public void modificar()
+public void modificar(String ide)
 {
-;
+        conectar cc = new conectar(); // Llamar al objeto conectar 
+        Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+        
+        try{    
+        String sql = "SELECT IdEquipo, nomEquipo, marcaEquipo, accesorios, descEquipo, historial, Categoria, nomFoto, foto FROM equipo WHERE IdEquipo = '" +ide+ "' ; ";
+            try (CallableStatement cmd = con.prepareCall(sql)) {
+                ResultSet rs = cmd.executeQuery();
+                rs.next();
+                idEquipo.setText(rs.getString("IdEquipo"));
+                nomEquipo.setText(rs.getString("nomEquipo"));
+                marcaEqui.setText(rs.getString("marcaEquipo"));
+                descEqui.setText(rs.getString("descEquipo"));
+                accesorios.setText(rs.getString("accesorios"));
+                historial.setText(rs.getString("historial"));
+                nomFoto.setText(rs.getString("nomFoto"));
+                //imaEquipo.set
+                
+            }
+        con.close();
+        }catch(Exception ex){
+        System.out.println(ex.getMessage());
+    }
 }
 }

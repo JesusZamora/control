@@ -31,6 +31,7 @@ public class listaEquipos extends javax.swing.JFrame {
         String cate = null;
         initComponents();
         iniciar(cate);
+        iniciar2();
     }
     
 
@@ -372,7 +373,7 @@ public class listaEquipos extends javax.swing.JFrame {
               conectar cc = new conectar(); // Llamar al objeto conectar 
               Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
               String id= (String)tabEquipo.getValueAt(i, 0);
-              String sql = "DELETE from equipo WHERE idEquipo ='"+ id +"';";
+              String sql = "DELETE from equipo WHERE idEquipo = '"+ id +"';";
                 try {
                     System.out.println(id);
                     PreparedStatement pst = con.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
