@@ -17,7 +17,10 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     public nuevoReporteUsua() {
         initComponents();
     }
-
+    public nuevoReporteUsua(String[] ides) {
+        initComponents();
+        System.out.print(ides);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,10 +33,7 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        Articulos = new java.awt.List();
         selecEquipo = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -43,21 +43,22 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         Solicitante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         Proyecto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        Accesorios = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Descripcion = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("CREAR NUEVO REPORTE (MODO USUARIO)");
 
         jButton1.setText("Imprimir");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 560, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -65,20 +66,13 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 560, -1, -1));
 
         jButton3.setText("Guardar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 560, -1, -1));
-
-        jLabel1.setText("Articulo(s) a prestar: ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
-
-        Articulos.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ArticulosActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
-        getContentPane().add(Articulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 249, 120));
 
         selecEquipo.setText("Elegir Equipo");
         selecEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -86,75 +80,142 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                 selecEquipoActionPerformed(evt);
             }
         });
-        getContentPane().add(selecEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
-
-        jLabel2.setText("Accesorios :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
 
         jLabel3.setText("Fecha Prestamo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, -1));
 
         jLabel4.setText("Fecha Devolución");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
 
         jLabel5.setText("Fecha Real de Entrega:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, 10));
 
         jLabel6.setText("00/00/00");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, -1, -1));
 
         jLabel7.setText("00/00/00");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
 
         jLabel8.setText("00/00/00");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, -1, -1));
 
         jLabel9.setText("Clausula 1");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
 
         jLabel10.setText("Clausula 2");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
 
         jLabel11.setText("Clausula 3");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, -1, -1));
-
-        jLabel12.setText("Descriociones del Equipo:");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         Solicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SolicitanteActionPerformed(evt);
             }
         });
-        getContentPane().add(Solicitante, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 11, 210, 21));
 
         jLabel13.setText("Nombre Del Solicitante:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 14, -1, -1));
 
         Proyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProyectoActionPerformed(evt);
             }
         });
-        getContentPane().add(Proyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 210, -1));
 
         jLabel14.setText("Proyecto en el que trabaja:");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jScrollPane3.setViewportView(Accesorios);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 250, -1));
+            },
+            new String [] {
+                "Equipo", "Accesorios", "Descripcion"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
-        jScrollPane1.setViewportView(Descripcion);
-
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 250, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(440, 440, 440)
+                        .addComponent(selecEquipo))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(110, 110, 110)
+                        .addComponent(jButton2)
+                        .addGap(125, 125, 125)
+                        .addComponent(jButton3)
+                        .addGap(119, 119, 119)
+                        .addComponent(jButton1)))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel14))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(selecEquipo)))
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel4)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel9)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel10)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel7)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel8)))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
+                .addContainerGap(38, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArticulosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ArticulosActionPerformed
 
     private void selecEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecEquipoActionPerformed
             ListaEquiUsua IE= new ListaEquiUsua();
@@ -163,7 +224,7 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     }//GEN-LAST:event_selecEquipoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            listaReporte IE= new listaReporte();
+            listaReporteUsua IE= new listaReporteUsua();
             IE.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -175,6 +236,14 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private void ProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProyectoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProyectoActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -213,21 +282,15 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList Accesorios;
-    private java.awt.List Articulos;
-    private javax.swing.JList Descripcion;
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -235,8 +298,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JButton selecEquipo;
     // End of variables declaration//GEN-END:variables
 }

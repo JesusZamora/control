@@ -22,6 +22,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="NUEVO EQUIPO"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -256,7 +257,7 @@
             <StringItem index="4" value="Foto Fija"/>
             <StringItem index="5" value="Fundas y Estuches"/>
             <StringItem index="6" value="Iluminaci&#xf3;n"/>
-            <StringItem index="7" value="Inmobiliario"/>
+            <StringItem index="7" value="Mobiliario"/>
             <StringItem index="8" value="&#xd3;ptica"/>
             <StringItem index="9" value="Sonido"/>
             <StringItem index="10" value="Tramoya"/>

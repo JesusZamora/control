@@ -5,7 +5,6 @@
  */
 package control;
 
-import com.sun.istack.internal.logging.Logger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +15,6 @@ import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -32,6 +30,17 @@ public class listaEquipos extends javax.swing.JFrame {
         initComponents();
         iniciar(cate);
         iniciar2();
+        recorre();
+    }
+    public listaEquipos(String[] ides2){
+        System.out.println("Si llegaron los IDES2");
+        String cate = null;
+        initComponents();
+        iniciar(cate);
+        iniciar2();
+        recorre();
+        seleccionados(ides2);
+        System.out.println("Pasa seleccionados");
     }
     
 
@@ -46,15 +55,16 @@ public class listaEquipos extends javax.swing.JFrame {
 
         jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabEquipo = new javax.swing.JTable();
         Categoria = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LISTA DE EQUIPOS");
 
         jButton5.setText("Pagina Principal");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -67,13 +77,6 @@ public class listaEquipos extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
             }
         });
 
@@ -96,14 +99,14 @@ public class listaEquipos extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Id Equipo", "Nombre del Equipo", "Accesorios", "Decripción", "Marca", "Equipo Activo/Inactivo", "Seleccionar "
+                "Id Equipo", "Nombre del Equipo", "Categoria", "Accesorios", "Decripción", "Marca", "Equipo Activo/Inactivo", "Seleccionar "
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true
+                false, false, false, false, false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -116,10 +119,10 @@ public class listaEquipos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabEquipo);
         if (tabEquipo.getColumnModel().getColumnCount() > 0) {
-            tabEquipo.getColumnModel().getColumn(5).setResizable(false);
+            tabEquipo.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VER TODOS LOS EQUIPOS", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Inmobiliario", "Óptica", "Sonido", "Tramoya" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VER TODOS LOS EQUIPOS", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Tramoya" }));
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoriaActionPerformed(evt);
@@ -128,6 +131,13 @@ public class listaEquipos extends javax.swing.JFrame {
 
         jLabel1.setText("Filtrar Equipo por:");
 
+        jButton4.setText("Modificar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,19 +145,19 @@ public class listaEquipos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(70, 70, 70)
                 .addComponent(jButton1)
-                .addGap(137, 137, 137)
-                .addComponent(jButton2)
-                .addGap(135, 135, 135)
+                .addGap(134, 134, 134)
+                .addComponent(jButton4)
+                .addGap(140, 140, 140)
                 .addComponent(jButton3)
                 .addGap(121, 121, 121)
                 .addComponent(jButton6)
-                .addGap(0, 61, Short.MAX_VALUE))
+                .addGap(0, 59, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 707, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
+                        .addGap(91, 91, 91))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -168,8 +178,9 @@ public class listaEquipos extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton4))
                     .addComponent(jButton3)
                     .addComponent(jButton6))
                 .addGap(32, 32, 32))
@@ -179,14 +190,48 @@ public class listaEquipos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-            nuevoReporte IE= new nuevoReporte();
-            IE.setVisible(true);
-            dispose();
+         String ide = null;
+         int mnb=0;
+         int e = 0;
+         for(int i=0; i<tabEquipo.getRowCount();i++)
+         {
+             if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                   e++;
+                }
+         }
+         int n = e;
+         String[] ides = new String[n];
+         if(e>=1){
+            for(int i=0; i<tabEquipo.getRowCount();i++)
+            {
+               if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                ide  = (String)tabEquipo.getValueAt(i,0);
+                ides[mnb] = ide;
+                mnb++;                
+                }
+            }
+         nuevoReporte IE= new nuevoReporte(ides);
+         IE.setVisible(true);
+         dispose();
+         }else 
+         {
+            if(ide == null) 
+                     {
+                        JOptionPane.showMessageDialog(rootPane, "Selecciona el o los equipo(s) que desees o prestar");
+                     }
+             }
+         /*for(int i=0; i<ides.length; i++)
+         {
+             System.out.print(ides[i]);
+             System.out.println("\n Lista equipos");
+         }*/
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        login pp= new login();
+        entrar pp= new entrar();
         pp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -196,27 +241,8 @@ public class listaEquipos extends javax.swing.JFrame {
         equipo IE= new equipo();
         IE.setVisible(true);
         dispose();
+        JOptionPane.showMessageDialog(null, "VERIFICA LA CATEGORIA");
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        String ide = null;
-        for(int i=0; i<tabEquipo.getRowCount();i++)
-            {
-            boolean selec = (boolean)tabEquipo.getValueAt(i,6);
-               if(selec == true)
-                {
-                   ide  = (String)tabEquipo.getValueAt(i,0);
-                }else
-                {
-                   //FALTA MENSAJE
-                }
-            }
-        System.out.println(ide);       
-        equipo IE= new equipo(ide);
-        IE.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void CategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CategoriaActionPerformed
         // TODO add your handling code here:
@@ -235,7 +261,46 @@ public class listaEquipos extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         elimina();
+        listaEquipos le= new listaEquipos();
+        le.setVisible(true);
+        dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+         String ide = null;
+         int e = 0;
+         for(int i=0; i<tabEquipo.getRowCount();i++)
+         {
+             if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                   e++;
+                }
+         }
+         if(e==1){
+            for(int i=0; i<tabEquipo.getRowCount();i++)
+            {
+               if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                   ide  = (String)tabEquipo.getValueAt(i,0);
+                   equipoModif IE= new equipoModif(ide);
+                   IE.setVisible(true);
+                   dispose();
+                }
+            }
+         }else 
+         {
+             if(e>1){
+             JOptionPane.showMessageDialog(rootPane, "Debes Seleccionar SOLAMENTE UN EQUIPO");
+             }else{
+         
+                     if(ide == null) 
+                     {
+                        JOptionPane.showMessageDialog(rootPane, "Selecciona un equipo para poder modificarlo");
+                     }
+             }
+         }
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -273,8 +338,8 @@ public class listaEquipos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Categoria;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -290,13 +355,13 @@ public class listaEquipos extends javax.swing.JFrame {
         DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
 
         try{    
-        String sql = "select idEquipo, nomEquipo, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "';";
+        String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
+                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "' order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
-                    Object[] datos = new Object [6];
-                    for (int i=0; i<=5; i++){
+                    Object[] datos = new Object [7];
+                    for (int i=0; i<=6; i++){
                         datos [i] = rs.getString(i+1);
                         //System.out.println(datos [i]);
                         //System.out.println(rs);
@@ -315,13 +380,13 @@ public class listaEquipos extends javax.swing.JFrame {
         DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
 
         try{    
-        String sql = "select idEquipo, nomEquipo, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo;";
+        String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
+                + "marcaEquipo, equipoActivo from equipo order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
-                    Object[] datos = new Object [6];
-                    for (int i=0; i<=5; i++){
+                    Object[] datos = new Object [7];
+                    for (int i=0; i<=6; i++){
                         datos [i] = rs.getString(i+1);
                         //System.out.println(datos [i]);
                         //System.out.println(rs);
@@ -338,20 +403,8 @@ public class listaEquipos extends javax.swing.JFrame {
   {
       for(int i=0; i<tabEquipo.getRowCount();i++)
       {
-          //boolean selec = (boolean)tabEquipo.getValueAt(i,6);
-          //String cad = (String)tabEquipo.getValueAt(i,5);
-          tabEquipo.setValueAt(false, i, 6);
-          //System.out.println(cad);
-          
+          tabEquipo.setValueAt(false, i, 7);   
       }
-      /*for(int i=0; i<tabEquipo.getRowCount();i++)
-      {
-          boolean selec = (boolean)tabEquipo.getValueAt(i,6);
-          //String cad = (String)tabEquipo.getValueAt(i,5);
-          //tabEquipo.setValueAt(false, 1, 6);
-          System.out.println(selec);
-          
-      }*/
   }
   private void Limpiar(JTable tabEquipoJTable) {
         while (tabEquipo.getRowCount()>0){
@@ -367,7 +420,7 @@ public class listaEquipos extends javax.swing.JFrame {
              System.out.println("SI");       
       for(int i=0; i<tabEquipo.getRowCount();i++)
       {
-          boolean selec = (boolean)tabEquipo.getValueAt(i,6);
+          boolean selec = (boolean)tabEquipo.getValueAt(i,7);
           if(selec == true)
           {
               conectar cc = new conectar(); // Llamar al objeto conectar 
@@ -375,7 +428,7 @@ public class listaEquipos extends javax.swing.JFrame {
               String id= (String)tabEquipo.getValueAt(i, 0);
               String sql = "DELETE from equipo WHERE idEquipo = '"+ id +"';";
                 try {
-                    System.out.println(id);
+                    //System.out.println(id);
                     PreparedStatement pst = con.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
                     pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
                     JOptionPane.showMessageDialog(rootPane, "Equipo Eliminado con Éxito");
@@ -390,15 +443,22 @@ public class listaEquipos extends javax.swing.JFrame {
            }
       
   }
+  public void seleccionados(String[] ides2)
+  {
+      System.out.println("Entra a Seleccionados");
+      for(int i=0; i<ides2.length; i++)
+      {
+          System.out.println("Aqui pasa por los ides2");
+          System.out.println(ides2[i]);
+          for(int p=0; p<= tabEquipo.getRowCount()-1; p++){
+              System.out.println("Aqui pasa por la tabla");
+              System.out.println(tabEquipo.getValueAt(p, 0));
+              if(ides2[i] == tabEquipo.getValueAt(p, 0)){
+              System.out.println("Se supone que los marca");
+              tabEquipo.setValueAt(true, p, 7);
+          
+              }
+          }
+      }
+  }
 }
-
-/*
-        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-           if (response == JOptionPane.NO_OPTION) {
-             System.out.println("No button clicked");
-           } else if (response == JOptionPane.YES_OPTION) {
-             System.out.println("Yes button clicked");
-           } else if (response == JOptionPane.CLOSED_OPTION) {
-             System.out.println("JOptionPane closed");
-           }
-*/

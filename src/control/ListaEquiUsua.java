@@ -5,7 +5,6 @@
  */
 package control;
 
-import com.sun.istack.internal.logging.Logger;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,13 +15,12 @@ import java.util.logging.Level;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
  * @author Jesus Ariel
  */
-public class ListaEquiUsua extends javax.swing.JFrame {
+public final class ListaEquiUsua extends javax.swing.JFrame {
 
     /**
      * Creates new form listaEquipos
@@ -30,7 +28,9 @@ public class ListaEquiUsua extends javax.swing.JFrame {
     public ListaEquiUsua() {
         String cate = null;
         initComponents();
+        iniciar2();
         iniciar(cate);
+        
     }
     
 
@@ -51,6 +51,7 @@ public class ListaEquiUsua extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("LISTA DE EQUIPOS (MODO USUARIO)");
 
         jButton5.setText("Pagina Principal");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
@@ -142,14 +143,44 @@ public class ListaEquiUsua extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-            nuevoReporte IE= new nuevoReporte();
-            IE.setVisible(true);
-            dispose();
+         
+    String ide = null;
+    String[] ides = new String[2];
+    int mnb=0;
+    int e = 0;
+
+         for(int i=0; i<tabEquipo.getRowCount();i++)
+         {
+             if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                e++;
+                }
+         }
+         if(e>=1){
+            for(int i=0; i<tabEquipo.getRowCount();i++)
+            {
+               if((boolean)tabEquipo.getValueAt(i,7) == true)
+                {
+                ide  = (String)tabEquipo.getValueAt(i,0);
+                ides[mnb] = ide;
+                mnb++;
+                }
+            }
+         }else 
+         {
+            if(ide == null) 
+                     {
+                        JOptionPane.showMessageDialog(rootPane, "Selecciona el o los equipo(s) que desees o prestar");
+                     }
+         }
+        //nuevoReporte IE= new nuevoReporte(ides);
+        //IE.setVisible(true);
+        //dispose();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        login pp= new login();
+        entrar pp= new entrar();
         pp.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -216,13 +247,13 @@ public class ListaEquiUsua extends javax.swing.JFrame {
         DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
 
         try{    
-        String sql = "select idEquipo, nomEquipo, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "';";
+        String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
+                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "' order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
-                    Object[] datos = new Object [6];
-                    for (int i=0; i<=5; i++){
+                    Object[] datos = new Object [7];
+                    for (int i=0; i<=6; i++){
                         datos [i] = rs.getString(i+1);
                         //System.out.println(datos [i]);
                         //System.out.println(rs);
@@ -234,24 +265,38 @@ public class ListaEquiUsua extends javax.swing.JFrame {
         System.out.println(ex.getMessage());
     }      
     }
+    public void iniciar2()
+    {
+        conectar cc = new conectar(); // Llamar al objeto conectar 
+        Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+        DefaultTableModel Modelo = (DefaultTableModel) tabEquipo.getModel();
+
+        try{    
+        String sql = "SELECT idEquipo, nomEquipo,Categoria, accesorios, descEquipo,"
+                + "marcaEquipo, equipoActivo FROM equipo WHERE Categoria='Cables y Adaptadores' order by IdEquipo;";
+            try (CallableStatement cmd = con.prepareCall(sql)) {
+                ResultSet rs = cmd.executeQuery();
+                while (rs.next()) {
+                    Object[] datos = new Object [7];
+                    for (int i=0; i<=6; i++){
+                        datos [i] = rs.getString(i+1);
+                        //System.out.println(datos [i]);
+                        //System.out.println(rs);
+                    }
+                    Modelo.addRow(datos);
+                }   }
+        con.close();
+    }catch(Exception ex){
+        System.out.println(ex.getMessage());
+    }
+        //recorre();
+    }
   public void recorre()
   {
       for(int i=0; i<tabEquipo.getRowCount();i++)
       {
-          //boolean selec = (boolean)tabEquipo.getValueAt(i,6);
-          //String cad = (String)tabEquipo.getValueAt(i,5);
-          tabEquipo.setValueAt(false, i, 6);
-          //System.out.println(cad);
-          
+          tabEquipo.setValueAt(false, i, 6);         
       }
-      /*for(int i=0; i<tabEquipo.getRowCount();i++)
-      {
-          boolean selec = (boolean)tabEquipo.getValueAt(i,6);
-          //String cad = (String)tabEquipo.getValueAt(i,5);
-          //tabEquipo.setValueAt(false, 1, 6);
-          System.out.println(selec);
-          
-      }*/
   }
   private void Limpiar(JTable tabEquipoJTable) {
         while (tabEquipo.getRowCount()>0){

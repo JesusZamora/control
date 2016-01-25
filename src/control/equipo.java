@@ -5,10 +5,14 @@
  */
 package control;
 
+import java.awt.Dimension;
 import java.awt.Image;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.sql.Blob;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,6 +23,7 @@ import java.util.logging.Logger;
 import javafx.stage.FileChooser;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
@@ -27,14 +32,14 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Jesus Ariel
  */
-public class equipo extends javax.swing.JFrame {
+public final class equipo extends javax.swing.JFrame {
 
     /**
      * Creates new form equipo
+     * @param ide
      */
     public equipo(String ide) {
         initComponents();
-        System.out.print(ide);
         modificar(ide);
     }
     public equipo() {
@@ -94,6 +99,7 @@ public class equipo extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTextArea2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("NUEVO EQUIPO");
 
         jLabel1.setText("Id Equipo :");
 
@@ -142,7 +148,7 @@ public class equipo extends javax.swing.JFrame {
             }
         });
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Inmobiliario", "Óptica", "Sonido", "Tramoya" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Tramoya" }));
         Categoria.setToolTipText("");
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,13 +284,13 @@ public class equipo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+            //JOptionPane.showMessageDialog(null, "VERIFICA LA CATEGORIA");
             conectar cc = new conectar(); // Llamar al objeto conectar 
             Connection cn = cc.conexion();//creamos la variable conexion con el metodo conexion 
             String equiActivo;
             FileInputStream archivoFoto;   //se crean variables temporales para guardar lo qe se iene en cajas
             String sql = "";        //variale para sentencia sql
             equiActivo = "activo";
-            System.out.println("Hola");
             sql="INSERT INTO equipo (idEquipo, nomEquipo, marcaEquipo, accesorios, descEquipo, historial, equipoActivo, Categoria, nomFoto, foto)"
                     + " VALUES (?,?,?,?,?,?,?,?,?,?)"; //permite insertar los datos en nuestra base de datos
             
@@ -306,15 +312,13 @@ public class equipo extends javax.swing.JFrame {
             archivoFoto = new FileInputStream(nomFoto.getText());
             pst.setBinaryStream(10, archivoFoto);
 
-            
-            
-            
-            //pst.setString(6,num);
-            System.out.println(pst);
             int n=pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
             if (n>0) {   // si no esta vacio entonces 
                 JOptionPane.showMessageDialog(null, "Equipo registrado con exito");
-                limpiar(); 
+                limpiar();
+                listaEquipos IE= new listaEquipos();
+                IE.setVisible(true);
+                dispose();
             }
             
         } catch (SQLException ex) {
@@ -333,11 +337,31 @@ public class equipo extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        final JLabel img = new JLabel();
+        img.setPreferredSize(new Dimension(200,200));
+        img.setHorizontalAlignment(JLabel.CENTER);
         //Creamos nuestra variable archivo en la cual podremos usar todos los metodos de la clase jFileChooser        
-        JFileChooser imaEquip = new JFileChooser();
+        final JFileChooser imaEquip = new JFileChooser();
+        imaEquip.setAccessory(img);
+        imaEquip.addPropertyChangeListener(new PropertyChangeListener() {
+
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                try{
+                    if(evt.getPropertyName().equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY));
+                    img.setText("");
+                    img.setIcon(new ImageIcon(imaEquip.getSelectedFile().getPath()));
+                    
+                   }
+                catch(Exception ex){
+                    img.setText("Solo Imagenes");
+                    img.setIcon(new ImageIcon());
+                }
+            }
+            });
+        
         //Si deseamos crear filtros para la selecion de archivos
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Imagen", "jpg, jpeg, png, tif, bmp");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Imagen", "jpg", "jpeg", "png", "tif", "bmp");
         // Agregamos el Filtro pero cuidado se mostrara despues de todos los archivos
         imaEquip.addChoosableFileFilter(filtro);
         // Colocamos titulo a nuestra ventana de Seleccion
@@ -446,11 +470,11 @@ public class equipo extends javax.swing.JFrame {
 public void modificar(String ide)
 {
         conectar cc = new conectar(); // Llamar al objeto conectar 
-        Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+        Connection cn = cc.conexion();//creamos la variable conexion con el metodo conexion 
         
         try{    
         String sql = "SELECT IdEquipo, nomEquipo, marcaEquipo, accesorios, descEquipo, historial, Categoria, nomFoto, foto FROM equipo WHERE IdEquipo = '" +ide+ "' ; ";
-            try (CallableStatement cmd = con.prepareCall(sql)) {
+            try (CallableStatement cmd = cn.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 rs.next();
                 idEquipo.setText(rs.getString("IdEquipo"));
@@ -460,10 +484,10 @@ public void modificar(String ide)
                 accesorios.setText(rs.getString("accesorios"));
                 historial.setText(rs.getString("historial"));
                 nomFoto.setText(rs.getString("nomFoto"));
-                //imaEquipo.set
-                
+                //imaEquipo. 
+        
             }
-        con.close();
+        cn.close();
         }catch(Exception ex){
         System.out.println(ex.getMessage());
     }

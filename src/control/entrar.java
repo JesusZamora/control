@@ -6,19 +6,18 @@
 package control;
 
 import javax.swing.JOptionPane;
-import sun.security.util.Password;
 
 /**
  *
  * @author Jesus Ariel
  */
-public class login extends javax.swing.JFrame {
+public class entrar extends javax.swing.JFrame {
 
     
     /**
      * Creates new form login
      */
-    public login() {
+    public entrar() {
         initComponents();
     }
 
@@ -33,10 +32,10 @@ public class login extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        pass = new javax.swing.JPasswordField();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("PANTALLA PRINCIPAL");
 
         jButton1.setText("Ver Equipo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -52,11 +51,10 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Entrar como Administrador :");
-
-        pass.addActionListener(new java.awt.event.ActionListener() {
+        jButton3.setText("REGRESAR A LOGEO");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -65,95 +63,50 @@ public class login extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButton2)
-                        .addGap(0, 91, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(pass)))
-                .addContainerGap())
+                .addGap(70, 70, 70)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(72, 72, 72))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addContainerGap()
+                .addComponent(jButton3)
+                .addGap(147, 147, 147)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(191, 191, 191)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-           //se crean dos variables las cuales van a tener los valores
-        String Contraseña="12345";
-        
-        //ahora se van a obtener los valores del jpassword y del jusuario xD
-        
-        String Pass=new String(pass.getPassword());//se debe convertir a string para hacer la validacion  lo del jpasword ****
-        
-        //ahora se hacen validaciones
-        //lo que se digite en usuario si es igual al usuario que tenemos admin 
-        if(Pass.equals(Contraseña)){
-            
-            //ahora ponemos el formulario que continua
             listaReporte lr= new listaReporte();
             lr.setVisible(true);
             dispose();
-            JOptionPane.showMessageDialog(null, "Modo Administrador");
-        }
-        else{
-            //ahora ponemos el formulario que continua
-            listaReporteUsua lru = new listaReporteUsua();
-            lru.setVisible(true);
-            dispose();         
-            JOptionPane.showMessageDialog(null, "Modo Usuario");
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //se crean dos variables las cuales van a tener los valores
-        String Contraseña="12345";
-        
-        //ahora se van a obtener los valores del jpassword y del jusuario xD
-        
-        String Pass=new String(pass.getPassword());//se debe convertir a string para hacer la validacion  lo del jpasword ****
-        
-        //ahora se hacen validaciones
-        //lo que se digite en usuario si es igual al usuario que tenemos admin 
-        if(Pass.equals(Contraseña)){
-            
             //ahora ponemos el formulario que continua
             listaEquipos le= new listaEquipos();
             le.setVisible(true);
             dispose();
-            JOptionPane.showMessageDialog(null, "Modo Administrador");
-        }
-        else{
-            //ahora ponemos el formulario que continua
-            ListaEquiUsua leu = new ListaEquiUsua();
-            leu.setVisible(true);
-            dispose();         
-            JOptionPane.showMessageDialog(null, "Modo Usuario");
-        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_passActionPerformed
+            Logeo lo= new Logeo();
+            lo.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,26 +125,26 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(entrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(entrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(entrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(entrar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new login().setVisible(true);
+            new entrar().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JPasswordField pass;
+    private javax.swing.JButton jButton3;
     // End of variables declaration//GEN-END:variables
 }

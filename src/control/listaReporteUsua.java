@@ -35,6 +35,7 @@ public class listaReporteUsua extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("LISTA DE REPORTES (MODO USUARIO)");
 
         jButton1.setText("Crear Nuevo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -54,10 +55,7 @@ public class listaReporteUsua extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "Id Reporte", "Solicitante", "Prestador", "Fecha de Prestamo", "Nombre Proyecto"
@@ -119,7 +117,7 @@ public class listaReporteUsua extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pPrincipalActionPerformed
-           login IE= new login();
+           entrar IE= new entrar();
            IE.setVisible(true);
            dispose();
     }//GEN-LAST:event_pPrincipalActionPerformed

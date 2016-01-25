@@ -1,14 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control;
 
 /**
  *
  * @author Jesus Ariel
  */
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 public class nuevoReporte extends javax.swing.JFrame {
 
     /**
@@ -16,8 +20,31 @@ public class nuevoReporte extends javax.swing.JFrame {
      */
     public nuevoReporte() {
         initComponents();
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
     }
-
+    public nuevoReporte(String[] ides) {
+        initComponents();
+        llenaTab(ides);
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,37 +54,42 @@ public class nuevoReporte extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        Articulos = new java.awt.List();
         selecEquipo = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        fecha = new javax.swing.JLabel();
+        fecha1 = new javax.swing.JLabel();
+        fecha2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
         Solicitante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         Proyecto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        Accesorios = new javax.swing.JList();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        Descripcion = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabReporte = new javax.swing.JTable();
+        hora = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+
+        jMenuItem1.setText("Eliminar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setTitle("CREAR NUEVO REPORTE");
 
         jButton1.setText("Imprimir");
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 560, -1, -1));
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -65,20 +97,8 @@ public class nuevoReporte extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 560, -1, -1));
 
         jButton3.setText("Guardar");
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 560, -1, -1));
-
-        jLabel1.setText("Articulo(s) a prestar: ");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
-
-        Articulos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ArticulosActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Articulos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 249, 120));
 
         selecEquipo.setText("Elegir Equipo");
         selecEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -86,75 +106,171 @@ public class nuevoReporte extends javax.swing.JFrame {
                 selecEquipoActionPerformed(evt);
             }
         });
-        getContentPane().add(selecEquipo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 90, -1, -1));
 
-        jLabel2.setText("Accesorios :");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 230, -1, -1));
-
-        jLabel3.setText("Fecha Prestamo:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, -1));
+        jLabel3.setText("Fecha y Hora de Prestamo:");
 
         jLabel4.setText("Fecha Devolución");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
 
         jLabel5.setText("Fecha Real de Entrega:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, -1, 10));
 
-        jLabel6.setText("00/00/00");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 160, -1, -1));
+        fecha.setText("00/00/00");
 
-        jLabel7.setText("00/00/00");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, -1, -1));
+        fecha1.setText("00/00/00");
 
-        jLabel8.setText("00/00/00");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 260, -1, -1));
+        fecha2.setText("00/00/00");
 
         jLabel9.setText("Clausula 1");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
 
         jLabel10.setText("Clausula 2");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 330, -1, -1));
 
         jLabel11.setText("Clausula 3");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, -1, -1));
-
-        jLabel12.setText("Descriociones del Equipo:");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, -1, -1));
 
         Solicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SolicitanteActionPerformed(evt);
             }
         });
-        getContentPane().add(Solicitante, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 11, 210, 21));
 
         jLabel13.setText("Nombre Del Solicitante:");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 14, -1, -1));
 
         Proyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ProyectoActionPerformed(evt);
             }
         });
-        getContentPane().add(Proyecto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 210, -1));
 
         jLabel14.setText("Proyecto en el que trabaja:");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
 
-        jScrollPane3.setViewportView(Accesorios);
+        tabReporte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 250, -1));
+            },
+            new String [] {
+                "id Equipo", "Equipo", "Accesorios", "Descripcion"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jScrollPane1.setViewportView(Descripcion);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabReporte.setComponentPopupMenu(jPopupMenu1);
+        tabReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabReporteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabReporte);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 380, 250, -1));
+        hora.setText("00:00");
+
+        jButton4.setText("Añadir + Equipo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(50, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addGap(47, 47, 47)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fecha)
+                            .addComponent(fecha1)
+                            .addComponent(fecha2)
+                            .addComponent(hora)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(440, 440, 440)
+                                .addComponent(selecEquipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(jButton2)
+                                .addGap(125, 125, 125)
+                                .addComponent(jButton3)
+                                .addGap(119, 119, 119)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(selecEquipo)
+                        .addComponent(jButton4)))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(hora))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel4)
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(40, 40, 40)
+                        .addComponent(jLabel9)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel10)
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addComponent(fecha1)
+                        .addGap(36, 36, 36)
+                        .addComponent(fecha2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3)
+                    .addComponent(jButton1))
+                .addContainerGap(30, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ArticulosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ArticulosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ArticulosActionPerformed
 
     private void selecEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecEquipoActionPerformed
             listaEquipos IE= new listaEquipos();
@@ -175,6 +291,31 @@ public class nuevoReporte extends javax.swing.JFrame {
     private void ProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProyectoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_ProyectoActionPerformed
+
+    private void tabReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReporteMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabReporteMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int fila;
+        fila=tabReporte.getSelectedRow();
+        ((DefaultTableModel) tabReporte.getModel()).removeRow(fila);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String[] ides2 = new String[tabReporte.getRowCount()];
+        for(int i=0; i<=tabReporte.getRowCount()-1; i++){
+                
+            ides2[i]=(String)tabReporte.getValueAt(i, 0);  
+            }
+            /*for(int p=0; p<ides2.length; p++){
+                System.out.println(ides2[p]);
+                System.out.println("Nuevo reporte");
+            }*/
+            listaEquipos IE= new listaEquipos(ides2);
+            IE.setVisible(true);
+            dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -212,30 +353,61 @@ public class nuevoReporte extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList Accesorios;
-    private java.awt.List Articulos;
-    private javax.swing.JList Descripcion;
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
+    private javax.swing.JLabel fecha;
+    private javax.swing.JLabel fecha1;
+    private javax.swing.JLabel fecha2;
+    private javax.swing.JLabel hora;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton selecEquipo;
+    private javax.swing.JTable tabReporte;
     // End of variables declaration//GEN-END:variables
+
+    
+   public void llenaTab(String[] ides){
+       int ise=ides.length;
+       conectar cc = new conectar(); // Llamar al objeto conectar 
+       Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+       DefaultTableModel Modelo = (DefaultTableModel) tabReporte.getModel();
+       
+       for(int c=0; c <= ise; c++){
+        try{    
+        String sql = "select idEquipo, nomEquipo, accesorios, descEquipo from equipo where idEquipo = '" +ides[c]+ "';";
+            try (CallableStatement cmd = con.prepareCall(sql)) {
+                ResultSet rs = cmd.executeQuery();
+                while (rs.next()) {
+                    Object[] datos = new Object [4];
+                    for (int i=0; i<=3; i++){
+                        datos [i] = rs.getString(i+1);
+                        //System.out.println(datos [i]);
+                        //System.out.println(rs);
+                    }
+                    Modelo.addRow(datos);
+                }   }
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+       }
+   }
+    
+    
+    
+    
+    
+    
 }
