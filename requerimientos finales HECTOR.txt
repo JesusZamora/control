@@ -1,0 +1,7 @@
+-Respaldo y restauracion de BD
+-Impresion de reporte de prestamo
+-Impresion de Equipos (toda la BD)
+-Captura de prestamos
+-Creacion de Prestamos (Añadir más equipo al prestamo)
+-Al guardar el prestamo verificar la hora de prestamo para decidir si es "Administrador(9-14) o Usuario(14-19)"
+{}-Agregar boton de imprimir por Categoria de equipos
