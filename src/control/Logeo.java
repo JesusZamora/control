@@ -143,7 +143,7 @@ public class Logeo extends javax.swing.JFrame {
         
         //ahora se hacen validaciones
         //lo que se digite en usuario si es igual al usuario que tenemos admin 
-        if(Pass.equals(Contraseña)){
+        if(Pass.compareTo(Contraseña) == 0){
             
             //ahora ponemos el formulario que continua
             entrar lo= new entrar();

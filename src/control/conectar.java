@@ -13,7 +13,7 @@ Connection conect = null;
              
            //Cargamos el Driver MySQLi89
            Class.forName("org.gjt.mm.mysql.Driver"); //activamos el driver 
-           conect = DriverManager.getConnection("jdbc:mysql://localhost/inventario","root",""); 
+           conect = DriverManager.getConnection("jdbc:mysql://localhost/" + DBNAME,USER,PASS); 
            //cadena de conexion                            ubicacion-base-usuario por default
            //JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar la convocatoria?");
           

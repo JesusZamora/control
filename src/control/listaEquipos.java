@@ -452,10 +452,10 @@ public class listaEquipos extends javax.swing.JFrame {
           System.out.println(ides2[i]);
           for(int p=0; p<= tabEquipo.getRowCount()-1; p++){
               System.out.println("Aqui pasa por la tabla");
-              System.out.println(tabEquipo.getValueAt(p, 0));
-              if(ides2[i] == tabEquipo.getValueAt(p, 0)){
-              System.out.println("Se supone que los marca");
-              tabEquipo.setValueAt(true, p, 7);
+              System.out.println( ides2[i] + " =? " +tabEquipo.getValueAt(p, 0));
+              if(ides2[i].compareTo(tabEquipo.getValueAt(p, 0).toString()) == 0){
+                System.out.println("Se supone que los marca");
+                tabEquipo.setValueAt(true, p, 7);
           
               }
           }
