@@ -171,9 +171,10 @@ public class Logeo extends javax.swing.JFrame {
     }//GEN-LAST:event_passKeyTyped
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Principal princ= new Principal();
+        CtrlBaseDatos princ;
+        princ = new CtrlBaseDatos(this,true);
         princ.setVisible(true);
-        dispose();
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -192,15 +193,12 @@ public class Logeo extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Logeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Logeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Logeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException | ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Logeo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        
         //</editor-fold>
         //</editor-fold>
 

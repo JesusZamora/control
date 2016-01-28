@@ -3,7 +3,10 @@ import java.sql.*;
 import javax.swing.*;
 
 public class conectar {
-Connection conect = null;
+Connection conect = null;   
+    public static final String USER = "root";
+    public static final String PASS = "12345";
+    public static final String DBNAME = "inventario";
    public Connection conexion()
     {
       try {
@@ -20,4 +23,5 @@ Connection conect = null;
         return conect;
      
     }
+
 }
