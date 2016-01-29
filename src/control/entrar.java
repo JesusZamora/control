@@ -89,14 +89,14 @@ public class entrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            listaReporte lr= new listaReporte();
+            listaReporte lr= new listaReporte(false);
             lr.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
             //ahora ponemos el formulario que continua
-            listaEquipos le= new listaEquipos();
+            listaEquipos le= new listaEquipos(false);
             le.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton1ActionPerformed

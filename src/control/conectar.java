@@ -23,5 +23,32 @@ Connection conect = null;
         return conect;
      
     }
+   public static ResultSet consultar(String sql, Connection con) {
+        ResultSet resultado;
+        try {
+            Statement sentencia = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+            resultado = sentencia.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }        return resultado;
+    }
+   public static boolean ejecutarTransaccion(String pSql,  Connection pConectar){
+       Statement objSentencia = null;
+       boolean estado = false;
+       try {
+            objSentencia = pConectar.prepareStatement(pSql);
+            try {
+                 
+                 if(objSentencia.executeUpdate(pSql) > 0)
+                     estado = true;
+            } catch (SQLException e) {
+                 e.printStackTrace();
+            }
+          } catch (SQLException e){
+             e.printStackTrace();
+        }
+       return estado;
+    }
 
 }

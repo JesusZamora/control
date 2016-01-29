@@ -123,7 +123,7 @@ public class listaReporteUsua extends javax.swing.JFrame {
     }//GEN-LAST:event_pPrincipalActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            nuevoReporteUsua IE= new nuevoReporteUsua();
+            nuevoReporte IE= new nuevoReporte(true);
             IE.setVisible(true);
             dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed

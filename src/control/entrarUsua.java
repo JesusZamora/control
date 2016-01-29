@@ -89,13 +89,13 @@ public class entrarUsua extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            listaReporteUsua lru = new listaReporteUsua();
+            listaReporte lru = new listaReporte(true);
             lru.setVisible(true);
             dispose();         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            ListaEquiUsua leu = new ListaEquiUsua();
+            listaEquipos leu = new listaEquipos(true);
             leu.setVisible(true);
             dispose();         
     }//GEN-LAST:event_jButton1ActionPerformed

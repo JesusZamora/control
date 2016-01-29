@@ -11,15 +11,20 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class nuevoReporte extends javax.swing.JFrame {
-
+    private boolean guardado;
+    private boolean usuario;
     /**
      * Creates new form nuevoReporte
      */
-    public nuevoReporte() {
+    public nuevoReporte(boolean usuario) {
         initComponents();
+        guardado = false;
+        this.usuario = usuario;
         Calendar cal=Calendar.getInstance(); 
         String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
         String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
@@ -31,8 +36,9 @@ public class nuevoReporte extends javax.swing.JFrame {
         this.fecha2.setText(fecha2);
         this.hora.setText(hora);
     }
-    public nuevoReporte(String[] ides) {
+    public nuevoReporte(String[] ides, boolean usuario) {
         initComponents();
+        this.usuario = usuario;
         llenaTab(ides);
         Calendar cal=Calendar.getInstance(); 
         String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
@@ -45,6 +51,29 @@ public class nuevoReporte extends javax.swing.JFrame {
         this.fecha2.setText(fecha2);
         this.hora.setText(hora);
     }
+
+    nuevoReporte(String[] ides, String proyecto, String solicitante, boolean usuario) {
+        initComponents();
+        this.usuario = usuario;
+        llenaTab(ides);
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        
+        Calendar caldevolucion = Calendar.getInstance(); 
+        caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
+        String fecha1=(caldevolucion.get(caldevolucion.DATE))+"/"+(caldevolucion.get(caldevolucion.MONTH)+1)+"/"+caldevolucion.get(caldevolucion.YEAR);
+        
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
+        Proyecto.setText(proyecto);
+        Solicitante.setText(solicitante);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,6 +119,11 @@ public class nuevoReporte extends javax.swing.JFrame {
         setTitle("CREAR NUEVO REPORTE");
 
         jButton1.setText("Imprimir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -99,6 +133,11 @@ public class nuevoReporte extends javax.swing.JFrame {
         });
 
         jButton3.setText("Guardar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         selecEquipo.setText("Elegir Equipo");
         selecEquipo.addActionListener(new java.awt.event.ActionListener() {
@@ -273,13 +312,13 @@ public class nuevoReporte extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void selecEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecEquipoActionPerformed
-            listaEquipos IE= new listaEquipos();
+            listaEquipos IE= new listaEquipos(usuario);
             IE.setVisible(true);
             dispose();
     }//GEN-LAST:event_selecEquipoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            listaReporte IE= new listaReporte();
+            listaReporte IE= new listaReporte(usuario);
             IE.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -312,46 +351,111 @@ public class nuevoReporte extends javax.swing.JFrame {
                 System.out.println(ides2[p]);
                 System.out.println("Nuevo reporte");
             }*/
-            listaEquipos IE= new listaEquipos(ides2);
-            IE.setVisible(true);
+            if(usuario)
+            {
+                ListaEquiUsua eu = new ListaEquiUsua(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
+                eu.setVisible(true);
+            }
+            else
+            {
+                listaEquipos IE= new listaEquipos(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
+                IE.setVisible(true);
+            }
             dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // imprimir
+        if(!guardado){
+            JOptionPane.showMessageDialog(this, "Tienes que guardar el reporte antes de imprimirlo");
+            return;
         }
-        //</editor-fold>
+        //metodo para imprimir
+    }//GEN-LAST:event_jButton1ActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new nuevoReporte().setVisible(true);
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // guardar
+        if(guardado)
+        {
+            jButton3.setEnabled(false);
+            return;
+        }
+        if(Proyecto.getText().length() <= 0)
+        {
+            JOptionPane.showMessageDialog(this, "Tienes que indicar el nombre del proyecto");
+            return;
+        }
+        if(Solicitante.getText().length() <= 0)
+        {
+            JOptionPane.showMessageDialog(this, "Tienes que indicar el nombre del Solicitante");
+            return;
+        }
+        if(tabReporte.getRowCount() <= 0 )
+        {
+            JOptionPane.showMessageDialog(this, "Selecciona el equipo a prestar");
+            return;
+        }  
+        Calendar cal=Calendar.getInstance(); 
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechahoy = sdf.format(dt);
+        String prestador = "";
+        Calendar calendario = Calendar.getInstance();
+        Integer horaactual = calendario.get(Calendar.HOUR_OF_DAY);
+        if(horaactual < 14)
+            prestador = "admin";
+        else
+            prestador = "usuario";
+        Calendar caldevolucion = Calendar.getInstance(); 
+        caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
+        String sql = "INSERT INTO `inventario`.`prestamo` (`solicitante`,`proyecto`,`fprestamo`,`fdevolucion`,`prestador`)"
+                + " VALUES('" + Solicitante.getText() +"', '"+ Proyecto.getText() +"','"+ fechahoy +"','"+ caldevolucion.get(caldevolucion.YEAR)+"-"+(caldevolucion.get(caldevolucion.MONTH)+1)+"-"+(caldevolucion.get(caldevolucion.DATE))+"','" + prestador +"')";
+        System.out.println(sql);
+        conectar con = new conectar();
+        Connection conect = con.conexion();
+        boolean res = conectar.ejecutarTransaccion(sql, conect);
+        
+        if(res)
+        {
+            JOptionPane.showMessageDialog(this, "Se ha almacenado");
+            jButton3.setEnabled(false);
+            guardado = true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "ERROR: no se ha podido almacenar");
+            return;
+        }
+        sql = "select last_insert_id()";
+        ResultSet rs = conectar.consultar(sql, conect);  
+        Integer id = null;
+        try {
+            while(rs.next())
+            {
+                id = rs.getInt("last_insert_id()");
             }
-        });
-    }
-
+            System.out.println(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Object[][] contenido = this.getTableData(tabReporte);
+        for(Object []fila : contenido)
+        {
+            sql = "INSERT INTO `inventario`.`presta` (`idprestamo`,`idEquipo`) VALUES ("+ id +",'" + fila[0].toString() +"')";
+            System.out.println(sql);
+            res = conectar.ejecutarTransaccion(sql, conect);
+            sql = "UPDATE `inventario`.`equipo` SET `equipoActivo` = 'inactivo' WHERE `idEquipo` = '" + fila[0].toString() + "'" ;
+            System.out.println(sql);
+            res = conectar.ejecutarTransaccion(sql, conect);
+        }
+        try {
+            conect.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
@@ -403,7 +507,17 @@ public class nuevoReporte extends javax.swing.JFrame {
                 System.out.println(ex.getMessage());
             }
        }
-   }
+    
+ }
+   public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
+    }
     
     
     

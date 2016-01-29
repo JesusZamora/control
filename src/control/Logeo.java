@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  * @author Jesus Ariel
  */
 public class Logeo extends javax.swing.JFrame {
-
+    public boolean tipousu = false; //false es un usuario true es admin
     
     /**
      * Creates new form login

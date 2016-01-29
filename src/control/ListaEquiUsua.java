@@ -22,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public final class ListaEquiUsua extends javax.swing.JFrame {
 
+    private String proyecto;
+    private String solicitante;
+
     /**
      * Creates new form listaEquipos
      */
@@ -30,6 +33,18 @@ public final class ListaEquiUsua extends javax.swing.JFrame {
         initComponents();
         iniciar2();
         iniciar(cate);
+        
+    }
+
+    ListaEquiUsua(String[] ides2, String proyecto, String solicitante, boolean usuario) {
+        String cate = null;
+        initComponents();
+        iniciar2();
+        iniciar(cate);
+        recorre();
+        seleccionados(ides2);
+        this.proyecto = proyecto;
+        this.solicitante = solicitante;
         
     }
     
@@ -143,19 +158,19 @@ public final class ListaEquiUsua extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         
-    String ide = null;
-    String[] ides = new String[2];
-    int mnb=0;
-    int e = 0;
-
+                                   
+         String ide = null;
+         int mnb=0;
+         int e = 0;
          for(int i=0; i<tabEquipo.getRowCount();i++)
          {
              if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
-                e++;
+                   e++;
                 }
          }
+         int n = e;
+         String[] ides = new String[n];
          if(e>=1){
             for(int i=0; i<tabEquipo.getRowCount();i++)
             {
@@ -163,19 +178,24 @@ public final class ListaEquiUsua extends javax.swing.JFrame {
                 {
                 ide  = (String)tabEquipo.getValueAt(i,0);
                 ides[mnb] = ide;
-                mnb++;
+                mnb++;                
                 }
             }
+     nuevoReporte IE= new nuevoReporte(ides,true);
+         IE.setVisible(true);
+         dispose();
          }else 
          {
             if(ide == null) 
                      {
                         JOptionPane.showMessageDialog(rootPane, "Selecciona el o los equipo(s) que desees o prestar");
                      }
-         }
-        //nuevoReporte IE= new nuevoReporte(ides);
-        //IE.setVisible(true);
-        //dispose();
+             }
+         /*for(int i=0; i<ides.length; i++)
+         {
+             System.out.print(ides[i]);
+             System.out.println("\n Lista equipos");
+         }*/
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -189,9 +209,9 @@ public final class ListaEquiUsua extends javax.swing.JFrame {
         // TODO add your handling code here:
         Limpiar(tabEquipo);
         Object cat = Categoria.getSelectedItem();
-            String cate = String.valueOf(cat);
-            iniciar(cate);
-            recorre();
+        String cate = String.valueOf(cat);
+        iniciar(cate);
+        recorre();
         //tabEquipo.setModel(new DefaultTableModel());
         
     }//GEN-LAST:event_CategoriaActionPerformed
@@ -302,7 +322,25 @@ public final class ListaEquiUsua extends javax.swing.JFrame {
         while (tabEquipo.getRowCount()>0){
             ((DefaultTableModel) tabEquipo.getModel()).removeRow(0);
         }
-    }     
+    }  
+  public void seleccionados(String[] ides2)
+  {
+      System.out.println("Entra a Seleccionados");
+      for(int i=0; i<ides2.length; i++)
+      {
+          System.out.println("Aqui pasa por los ides2");
+          System.out.println(ides2[i]);
+          for(int p=0; p<= tabEquipo.getRowCount()-1; p++){
+              System.out.println("Aqui pasa por la tabla");
+              System.out.println( ides2[i] + " =? " +tabEquipo.getValueAt(p, 0));
+              if(ides2[i].compareTo(tabEquipo.getValueAt(p, 0).toString()) == 0){
+                System.out.println("Se supone que los marca");
+                tabEquipo.setValueAt(true, p, 7);
+          
+              }
+          }
+      }
+  }
 }
 
 /*

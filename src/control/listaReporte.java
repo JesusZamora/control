@@ -5,17 +5,25 @@
  */
 package control;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author Jesus Ariel
  */
 public class listaReporte extends javax.swing.JFrame {
-
-    /**
-     * Creates new form listaReporte
-     */
-    public listaReporte() {
+    public boolean usuario = false; //tipo de usuario
+    
+    public listaReporte(boolean usuario) {
+        this.usuario = usuario;
         initComponents();
+        llena();
     }
 
     /**
@@ -31,7 +39,7 @@ public class listaReporte extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         pPrincipal = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        reportes = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -53,23 +61,23 @@ public class listaReporte extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        reportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id Reporte", "Solicitante", "Prestador", "Fecha de Prestamo", "Nombre Proyecto"
+                "Id Reporte", "Solicitante", "Proyecto", "Fecha de Prestamo", "Fecha de devolucion", "Fecha real", "prestador"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(reportes);
 
         jButton2.setText("Visualizar/Modificar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -123,13 +131,18 @@ public class listaReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_pPrincipalActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-            nuevoReporte IE= new nuevoReporte();
+            nuevoReporte IE= new nuevoReporte(usuario);
             IE.setVisible(true);
             dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        int fila = reportes.getSelectedRow();
+        Integer id = (Integer)reportes.getValueAt(fila, 0);
+        System.out.println("Seleccionado : " + id);
+        ModificaPrestamo mp = new ModificaPrestamo(id,usuario);
+        mp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -159,12 +172,7 @@ public class listaReporte extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new listaReporte().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -172,7 +180,31 @@ public class listaReporte extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton pPrincipal;
+    private javax.swing.JTable reportes;
     // End of variables declaration//GEN-END:variables
+
+    private void llena() {
+        conectar conecta = new conectar();
+        Connection con = conecta.conexion();
+        String sql = "select * from prestamo";
+        ResultSet rs = conecta.consultar(sql, con);
+        try {
+            while(rs.next())
+            {
+                Object []fila = new Object[7];
+                fila[0] = rs.getInt("idprestamo");
+                fila[1] = rs.getString("solicitante");
+                fila[2] = rs.getString("proyecto");
+                fila[3] = rs.getDate("fprestamo");
+                fila[4] = rs.getDate("fdevolucion");
+                fila[5] = rs.getDate("freal");
+                fila[6] = rs.getString("prestador");
+                DefaultTableModel modelo = (DefaultTableModel) reportes.getModel();
+                modelo.addRow(fila);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(listaReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

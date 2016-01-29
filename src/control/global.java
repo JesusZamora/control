@@ -7,14 +7,8 @@ package control;
 
 /**
  *
- * @author Jesus Ariel
+ * @author dns
  */
-public class Control {
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class global {
     
 }

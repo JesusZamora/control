@@ -314,7 +314,7 @@ public final class equipoModif extends javax.swing.JFrame {
             int n=pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
             if (n>0) {   // si no esta vacio entonces 
                 JOptionPane.showMessageDialog(null, "Equipo modificado con exito");
-                listaEquipos IE= new listaEquipos();
+                listaEquipos IE= new listaEquipos(false);
                 IE.setVisible(true);
                 dispose();
             }            
@@ -327,7 +327,7 @@ public final class equipoModif extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        listaEquipos IE= new listaEquipos();
+        listaEquipos IE= new listaEquipos(false);
         IE.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed

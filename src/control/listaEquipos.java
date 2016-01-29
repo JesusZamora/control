@@ -22,17 +22,34 @@ import javax.swing.table.DefaultTableModel;
  */
 public class listaEquipos extends javax.swing.JFrame {
 
+    private String solicitante;
+    private String proyecto;
+    private boolean usuario = false;
+
     /**
      * Creates new form listaEquipos
      */
-    public listaEquipos() {
+    public listaEquipos(boolean usuario) {
+        this.usuario= usuario;
         String cate = null;
         initComponents();
         iniciar(cate);
         iniciar2();
         recorre();
+        this.proyecto = null;
+        this.solicitante = null;
+        if(usuario)
+        {
+            jButton1.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
     }
-    public listaEquipos(String[] ides2){
+    public listaEquipos(String[] ides2,String proyecto, String solicitante, boolean usuario){
+        this.usuario = usuario;
+        this.proyecto = proyecto;
+        this.solicitante = solicitante;
+        
         System.out.println("Si llegaron los IDES2");
         String cate = null;
         initComponents();
@@ -41,6 +58,12 @@ public class listaEquipos extends javax.swing.JFrame {
         recorre();
         seleccionados(ides2);
         System.out.println("Pasa seleccionados");
+        if(usuario)
+        {
+            jButton1.setEnabled(false);
+            jButton3.setEnabled(false);
+            jButton4.setEnabled(false);
+        }
     }
     
 
@@ -212,7 +235,7 @@ public class listaEquipos extends javax.swing.JFrame {
                 mnb++;                
                 }
             }
-         nuevoReporte IE= new nuevoReporte(ides);
+         nuevoReporte IE= new nuevoReporte(ides,proyecto,solicitante,usuario);
          IE.setVisible(true);
          dispose();
          }else 
@@ -261,7 +284,7 @@ public class listaEquipos extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         elimina();
-        listaEquipos le= new listaEquipos();
+        listaEquipos le= new listaEquipos(usuario);
         le.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -302,38 +325,7 @@ public class listaEquipos extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(listaEquipos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(listaEquipos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(listaEquipos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(listaEquipos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new listaEquipos().setVisible(true);
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Categoria;

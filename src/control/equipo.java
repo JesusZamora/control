@@ -316,7 +316,7 @@ public final class equipo extends javax.swing.JFrame {
             if (n>0) {   // si no esta vacio entonces 
                 JOptionPane.showMessageDialog(null, "Equipo registrado con exito");
                 limpiar();
-                listaEquipos IE= new listaEquipos();
+                listaEquipos IE= new listaEquipos(false);
                 IE.setVisible(true);
                 dispose();
             }
@@ -331,7 +331,7 @@ public final class equipo extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        listaEquipos IE= new listaEquipos();
+        listaEquipos IE= new listaEquipos(false);
         IE.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
