@@ -348,7 +348,7 @@ public class listaEquipos extends javax.swing.JFrame {
 
         try{    
         String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "' order by IdEquipo;";
+                + "marcaEquipo, equipoActivo from equipo where Categoria = '" +cate+ "' AND equipoActivo = 'activo' order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
@@ -373,7 +373,7 @@ public class listaEquipos extends javax.swing.JFrame {
 
         try{    
         String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo order by IdEquipo;";
+                + "marcaEquipo, equipoActivo from equipo WHERE equipoActivo = 'activo'  order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {

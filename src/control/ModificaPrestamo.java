@@ -23,11 +23,13 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ModificaPrestamo extends javax.swing.JFrame {
     private boolean usuario;
+    private Integer id;
     /**
      * Creates new form ModificaPrestamo
      */
     public ModificaPrestamo(Integer id, boolean usuario) {
         initComponents();
+        this.id = id;
         String sql = "SELECT * FROM inventario.presta where idprestamo = " + id;
         System.out.println(sql);
         conectar conect = new conectar();
@@ -313,7 +315,28 @@ public class ModificaPrestamo extends javax.swing.JFrame {
         int res = JOptionPane.showConfirmDialog(this,"¿Deseas eliminarlo?","Eliminar", JOptionPane.YES_NO_OPTION);
         if(res == JOptionPane.YES_OPTION)
         {
-            //eliminar prestamo
+            String sql = "DELETE FROM `inventario`.`presta` WHERE idprestamo = " + id ;
+            conectar conect = new conectar();
+            Connection con = conect.conexion();
+            boolean r = conectar.ejecutarTransaccion(sql, con);
+            sql = "DELETE FROM `inventario`.`prestamo` WHERE idprestamo = " + id; 
+            r = conectar.ejecutarTransaccion(sql, con);
+            if(r)
+            {
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el prestamo");
+                listaReporte lr = new listaReporte(usuario);
+                lr.setVisible(true);
+                this.dispose();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "");
+            }
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificaPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 

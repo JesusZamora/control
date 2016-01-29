@@ -187,7 +187,13 @@ public class listaReporte extends javax.swing.JFrame {
     private void llena() {
         conectar conecta = new conectar();
         Connection con = conecta.conexion();
-        String sql = "select * from prestamo";
+        String modo = null;
+        if(usuario)
+            modo = "usuario";
+        else
+            modo = "admin";
+        
+        String sql = "select * from prestamo where prestador = '" + modo + "'";
         ResultSet rs = conecta.consultar(sql, con);
         try {
             while(rs.next())
