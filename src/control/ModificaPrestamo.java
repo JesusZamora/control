@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -356,7 +357,35 @@ public class ModificaPrestamo extends javax.swing.JFrame {
         int res = JOptionPane.showConfirmDialog(this,"¿Deseas marcar el reporte como devuelto?","Devolucion", JOptionPane.YES_NO_OPTION);
         if(res == JOptionPane.YES_OPTION)
         {
-            //devolver
+            java.util.Date dt = new java.util.Date();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String fechahoy = sdf.format(dt);
+            String sql = "UPDATE `inventario`.`prestamo` SET `freal` = '" + fechahoy + "'  WHERE `idprestamo` = " + id;
+            conectar conect = new conectar();
+            Connection con = conect.conexion();
+            boolean r = conectar.ejecutarTransaccion(sql, con);
+            if(!r)
+            {
+                JOptionPane.showMessageDialog(this, "NO ha registrado la devolucion");
+                return;
+            }
+            Object[][] contenido = this.getTableData(tabReporte);
+        for(Object []fila : contenido)
+        {
+            sql = "UPDATE `inventario`.`equipo` SET `equipoActivo` = 'activo' WHERE `idEquipo` = '" + fila[0].toString() + "'" ;
+            System.out.println(sql);
+            r = conectar.ejecutarTransaccion(sql, con);
+        }
+            JOptionPane.showMessageDialog(this, "Se ha registrado la devolucion");
+            listaReporte lr = new listaReporte(usuario);
+            lr.setVisible(true);
+            this.dispose();
+            
+            try {
+                con.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ModificaPrestamo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -387,4 +416,13 @@ public class ModificaPrestamo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabReporte;
     // End of variables declaration//GEN-END:variables
+public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
+    }
 }
