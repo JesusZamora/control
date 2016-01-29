@@ -148,7 +148,7 @@ public final class equipo extends javax.swing.JFrame {
             }
         });
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Tramoya" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Audio y Video", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Textiles", "Tramoya" }));
         Categoria.setToolTipText("");
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

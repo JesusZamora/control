@@ -31,23 +31,16 @@ public class Logeo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        pass = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        pass = new javax.swing.JPasswordField();
+        Entrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PANTALLA PRINCIPAL");
-
-        jButton1.setText("ENTRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
 
         jButton2.setText("ENTRAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -57,17 +50,6 @@ public class Logeo extends javax.swing.JFrame {
         });
 
         jLabel1.setText("Entrar como USUARIO :");
-
-        pass.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
-            }
-        });
-        pass.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                passKeyTyped(evt);
-            }
-        });
 
         jLabel2.setText("Entrar como ADMINISTRADOR :");
 
@@ -80,12 +62,30 @@ public class Logeo extends javax.swing.JFrame {
 
         jButton4.setText("INFO");
 
+        pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passKeyTyped(evt);
+            }
+        });
+
+        Entrar.setText("ENTRAR");
+        Entrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EntrarActionPerformed(evt);
+            }
+        });
+        Entrar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                EntrarKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(29, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton4)
@@ -95,13 +95,13 @@ public class Logeo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton1))
-                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                                .addComponent(Entrar)))))
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
@@ -109,9 +109,9 @@ public class Logeo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(67, 67, 67)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Entrar))
                 .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -133,8 +133,15 @@ public class Logeo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Modo Usuario");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //se crean dos variables las cuales van a tener los valores
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        CtrlBaseDatos princ;
+        princ = new CtrlBaseDatos(this,true);
+        princ.setVisible(true);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
+                //se crean dos variables las cuales van a tener los valores
         String Contraseña="loquesea";
         
         //ahora se van a obtener los valores del jpassword y del jusuario xD
@@ -149,33 +156,26 @@ public class Logeo extends javax.swing.JFrame {
             entrar lo= new entrar();
             lo.setVisible(true);
             dispose();
-            JOptionPane.showMessageDialog(null, "Modo Administrador");
+            JOptionPane.showMessageDialog(rootPane, "Bienvenid@", "Modo Administrador", WIDTH);
         }else
         {
             JOptionPane.showMessageDialog(null, "Contraseña incorrecta");
         }
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_EntrarActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-            entrarUsua loU = new entrarUsua();
-            loU.setVisible(true);
-            dispose();         
-    }//GEN-LAST:event_passActionPerformed
+    private void EntrarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_EntrarKeyTyped
+        char CteclaPresionada=evt.getKeyChar();
+        if(CteclaPresionada==KeyEvent.VK_ENTER){
+            Entrar.doClick();
+        }
+    }//GEN-LAST:event_EntrarKeyTyped
 
     private void passKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passKeyTyped
-        char cTeclaPres=evt.getKeyChar();
-        if(cTeclaPres==KeyEvent.VK_ENTER){
-        jButton1.doClick();
+        char CteclaPresionada=evt.getKeyChar();
+        if(CteclaPresionada==KeyEvent.VK_ENTER){
+            Entrar.doClick();
         }
     }//GEN-LAST:event_passKeyTyped
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        CtrlBaseDatos princ;
-        princ = new CtrlBaseDatos(this,true);
-        princ.setVisible(true);
-        
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,7 +209,7 @@ public class Logeo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton Entrar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

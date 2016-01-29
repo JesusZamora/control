@@ -145,7 +145,7 @@ public class listaEquipos extends javax.swing.JFrame {
             tabEquipo.getColumnModel().getColumn(6).setResizable(false);
         }
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VER TODOS LOS EQUIPOS", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Tramoya" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "VER TODOS LOS EQUIPOS", "Audio y Video", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Textiles", "Tramoya" }));
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CategoriaActionPerformed(evt);
