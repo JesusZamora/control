@@ -15,7 +15,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author dns
  */
 public class CtrlBaseDatos extends javax.swing.JDialog {
-    String pathMysql = "C:\\Program Files\\MySQL\\MySQL Server 5.7\\bin\\";
+    String pathMysql = "C:\\xampp\\mysql\\bin\\";
     /**
      * Creates new form CtrlBaseDatos
      */
@@ -234,9 +234,9 @@ public class CtrlBaseDatos extends javax.swing.JDialog {
             int processComplete = runtimeProcess.waitFor();
  
             if (processComplete == 0) {
-                System.out.println("Restored successfully!");
+                System.out.println("Restaurando la Base de Datos");
             } else {
-                System.out.println("Could not restore the backup!");
+                System.out.println("No se ha podido restaurar la BD");
             }
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -290,6 +290,7 @@ public class listaEquipos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+
         // TODO add your handling code here:
          String ide = null;
          int e = 0;
@@ -300,7 +301,7 @@ public class listaEquipos extends javax.swing.JFrame {
                    e++;
                 }
          }
-         if(e==1){
+         //if(e==1){
             for(int i=0; i<tabEquipo.getRowCount();i++)
             {
                if((boolean)tabEquipo.getValueAt(i,7) == true)
@@ -310,10 +311,10 @@ public class listaEquipos extends javax.swing.JFrame {
                    IE.setVisible(true);
                    dispose();
                 }
-            }
-         }else 
-         {
-             if(e>1){
+         //   }
+         //}else 
+         //{
+             /*if(e>1){
              JOptionPane.showMessageDialog(rootPane, "Debes Seleccionar SOLAMENTE UN EQUIPO");
              }else{
          
@@ -321,7 +322,7 @@ public class listaEquipos extends javax.swing.JFrame {
                      {
                         JOptionPane.showMessageDialog(rootPane, "Selecciona un equipo para poder modificarlo");
                      }
-             }
+             }*/
          }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -405,7 +406,7 @@ public class listaEquipos extends javax.swing.JFrame {
     }
   public void elimina()
   {
-     int response = JOptionPane.showConfirmDialog(null, "Seguro que quieres ELIMINAR","¿ELIMINAR?",JOptionPane.YES_NO_OPTION);
+     int response = JOptionPane.showConfirmDialog(null, "Seguro que quieres ELIMINAR","ยฟELIMINAR?",JOptionPane.YES_NO_OPTION);
       if (response == JOptionPane.NO_OPTION) {
              System.out.println("NO");
            } else if (response == JOptionPane.YES_OPTION) {
@@ -423,7 +424,7 @@ public class listaEquipos extends javax.swing.JFrame {
                     //System.out.println(id);
                     PreparedStatement pst = con.prepareStatement(sql);   //se hace para relacionar mi primer signo con marca y asi sucesivamente
                     pst.executeUpdate(); //int n = 1;    cuantos registros se han agregado    n sera 1 osea 1 registro
-                    JOptionPane.showMessageDialog(rootPane, "Equipo Eliminado con Éxito");
+                    JOptionPane.showMessageDialog(rootPane, "Equipo Eliminado con รxito");
                 }catch (SQLException ex) 
                 {
                     JOptionPane.showMessageDialog(rootPane, ex);
