@@ -127,8 +127,8 @@ public class Logeo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            entrarUsua loU = new entrarUsua();
-            loU.setVisible(true);
+            entrarUsua eU = new entrarUsua();
+            eU.setVisible(true);
             dispose();         
             JOptionPane.showMessageDialog(null, "Modo Usuario");
     }//GEN-LAST:event_jButton2ActionPerformed
