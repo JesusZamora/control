@@ -208,7 +208,8 @@ public class CtrlBaseDatos extends javax.swing.JDialog {
     private void respaldar(String sqlFile) {
         System.out.println("[x]Empezando el respaldo..."  + sqlFile);
         Process p = null;
-        String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " -p" + conectar.PASS + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
+        //String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " -p" + conectar.PASS + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
+        String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
         System.out.println(ejecutar);
         try {
             Runtime runtime = Runtime.getRuntime();
