@@ -170,9 +170,7 @@ public class listaReporte extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(listaReporte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        
+        //</editor-fold>        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -188,12 +186,12 @@ public class listaReporte extends javax.swing.JFrame {
         conectar conecta = new conectar();
         Connection con = conecta.conexion();
         String modo = null;
+        String sql;
         if(usuario)
-            modo = "usuario";
+            sql = "select * from prestamo where prestador = 'usuario'";
         else
-            modo = "admin";
+            sql = "select * from prestamo";
         
-        String sql = "select * from prestamo where prestador = '" + modo + "'";
         ResultSet rs = conecta.consultar(sql, con);
         try {
             while(rs.next())
