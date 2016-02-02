@@ -407,7 +407,7 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
             prestador =  "usuario"; //"admin";
         else
             prestador = "usuario";
-        Calendar caldevolucion = Calendar.getInstance(); 
+        Calendar caldevolucion = Calendar.getInstance();
         caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
         String sql = "INSERT INTO `inventario`.`prestamo` (`solicitante`,`proyecto`,`fprestamo`,`fdevolucion`,`prestador`)"
                 + " VALUES('" + Solicitante.getText() +"', '"+ Proyecto.getText() +"','"+ fechahoy +"','"+ caldevolucion.get(caldevolucion.YEAR)+"-"+(caldevolucion.get(caldevolucion.MONTH)+1)+"-"+(caldevolucion.get(caldevolucion.DATE))+"','" + prestador +"')";
