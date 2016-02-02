@@ -404,7 +404,7 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         Calendar calendario = Calendar.getInstance();
         Integer horaactual = calendario.get(Calendar.HOUR_OF_DAY);
         if(horaactual < 14)
-            prestador = "admin";
+            prestador =  "usuario"; //"admin";
         else
             prestador = "usuario";
         Calendar caldevolucion = Calendar.getInstance(); 
