@@ -402,13 +402,13 @@ public class nuevoReporte extends javax.swing.JFrame {
         java.util.Date dt = new java.util.Date();
         java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String fechahoy = sdf.format(dt);
-        String prestador = "";
-        Calendar calendario = Calendar.getInstance();
-        Integer horaactual = calendario.get(Calendar.HOUR_OF_DAY);
-        if(horaactual < 14)
+        String prestador = "Administrador";
+        //Calendar calendario = Calendar.getInstance();
+        //Integer horaactual = calendario.get(Calendar.HOUR_OF_DAY);
+        /*if(horaactual < 14)
             prestador = "admin";
         else
-            prestador = "usuario";
+            prestador = "usuario";*/
         Calendar caldevolucion = Calendar.getInstance(); 
         caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
         String sql = "INSERT INTO `inventario`.`prestamo` (`solicitante`,`proyecto`,`fprestamo`,`fdevolucion`,`prestador`)"

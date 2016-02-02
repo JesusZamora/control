@@ -142,7 +142,7 @@ public class Logeo extends javax.swing.JFrame {
 
     private void EntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntrarActionPerformed
                 //se crean dos variables las cuales van a tener los valores
-        String Contraseña="loquesea";
+        String Contraseña="adminequipo";
         
         //ahora se van a obtener los valores del jpassword y del jusuario xD
         

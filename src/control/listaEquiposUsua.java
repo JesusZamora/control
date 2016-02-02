@@ -218,7 +218,7 @@ public class listaEquiposUsua extends javax.swing.JFrame {
          int e = 0;
          for(int i=0; i<tabEquipo.getRowCount();i++)
          {
-             if((boolean)tabEquipo.getValueAt(i,7) == true)
+            if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
                    e++;
                 }
@@ -230,9 +230,17 @@ public class listaEquiposUsua extends javax.swing.JFrame {
             {
                if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
-                ide  = (String)tabEquipo.getValueAt(i,0);
-                ides[mnb] = ide;
-                mnb++;                
+                    if("inactivo".compareTo((String)tabEquipo.getValueAt(i, 6)) != 0)
+                    {
+                        ide  = (String)tabEquipo.getValueAt(i,0);
+                        ides[mnb] = ide;
+                        mnb++;                
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "No se puede prstar equipo inactivo");
+                        return;
+                    }
                 }
             }
          nuevoReporte IE= new nuevoReporte(ides,proyecto,solicitante,usuario);
