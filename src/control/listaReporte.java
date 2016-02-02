@@ -186,11 +186,7 @@ public class listaReporte extends javax.swing.JFrame {
         conectar conecta = new conectar();
         Connection con = conecta.conexion();
         String modo = null;
-<<<<<<< HEAD
         String sql = "";
-=======
-        String sql;
->>>>>>> 9e50096716d239a3f3445ac2a753f4e1a99a3e65
         if(usuario)
             sql = "select * from prestamo where prestador = 'usuario'";
         else

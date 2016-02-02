@@ -3,16 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/entrar.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/conectar.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/listaEquipos.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/CtrlBaseDatos.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/listaReporte.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/listaEquiposUsua.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/listaReporteUsua.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/nuevoReporteUsua.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/Logeo.java</file>
-            <file>file:/D:/Documentos/NetBeansProjects/control/src/control/entrarUsua.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/entrarUsua.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/listaReporte.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/nuevoReporte.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/conectar.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/listaEquipos.java</file>
+            <file>file:/C:/Users/dns/Documents/control/src/control/entrar.java</file>
         </group>
     </open-files>
 </project-private>
