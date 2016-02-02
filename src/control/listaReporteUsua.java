@@ -193,7 +193,7 @@ public class listaReporteUsua extends javax.swing.JFrame {
         else
             modo = "admin";
         
-        String sql = "select * from prestamo where prestador = usuario";
+        String sql = "select * from prestamo where prestador = 'usuario'";
         ResultSet rs = conecta.consultar(sql, con);
         try {
             while(rs.next())
