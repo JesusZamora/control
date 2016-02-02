@@ -1,26 +1,79 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package control;
 
 /**
  *
  * @author Jesus Ariel
  */
-public class nuevoReporteUsua extends javax.swing.JFrame {
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
+public class nuevoReporteUsua extends javax.swing.JFrame {
+    private boolean guardado;
+    private boolean usuario;
     /**
      * Creates new form nuevoReporte
      */
-    public nuevoReporteUsua() {
+    public nuevoReporteUsua(boolean usuario) {
         initComponents();
+        guardado = false;
+        this.usuario = usuario;
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
     }
-    public nuevoReporteUsua(String[] ides) {
+    public nuevoReporteUsua(String[] ides, boolean usuario) {
         initComponents();
-        System.out.print(ides);
+        this.usuario = usuario;
+        llenaTab(ides);
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
     }
+
+    nuevoReporteUsua(String[] ides, String proyecto, String solicitante, boolean usuario) {
+        initComponents();
+        this.usuario = usuario;
+        llenaTab(ides);
+        Calendar cal=Calendar.getInstance(); 
+        String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
+        
+        Calendar caldevolucion = Calendar.getInstance(); 
+        caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
+        String fecha1=(caldevolucion.get(caldevolucion.DATE))+"/"+(caldevolucion.get(caldevolucion.MONTH)+1)+"/"+caldevolucion.get(caldevolucion.YEAR);
+        
+        String fecha2=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
+        String hora=cal.get(cal.HOUR_OF_DAY)+":"+cal.get(cal.MINUTE)+":"+cal.get(cal.SECOND);
+        
+        this.fecha.setText(fecha); 
+        this.fecha1.setText(fecha1);
+        this.fecha2.setText(fecha2);
+        this.hora.setText(hora);
+        Proyecto.setText(proyecto);
+        Solicitante.setText(solicitante);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,6 +83,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -37,9 +92,9 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        fecha = new javax.swing.JLabel();
+        fecha1 = new javax.swing.JLabel();
+        fecha2 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -48,10 +103,20 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         Proyecto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabReporte = new javax.swing.JTable();
+        hora = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+
+        jMenuItem1.setText("Eliminar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("CREAR NUEVO REPORTE (MODO USUARIO)");
+        setTitle("CREAR NUEVO REPORTE");
 
         jButton1.setText("Imprimir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -81,17 +146,17 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Fecha Prestamo:");
+        jLabel3.setText("Fecha y Hora de Prestamo:");
 
         jLabel4.setText("Fecha Devolución");
 
         jLabel5.setText("Fecha Real de Entrega:");
 
-        jLabel6.setText("00/00/00");
+        fecha.setText("00/00/00");
 
-        jLabel7.setText("00/00/00");
+        fecha1.setText("00/00/00");
 
-        jLabel8.setText("00/00/00");
+        fecha2.setText("00/00/00");
 
         jLabel9.setText("Clausula 1");
 
@@ -115,15 +180,38 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
 
         jLabel14.setText("Proyecto en el que trabaja:");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabReporte.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Equipo", "Accesorios", "Descripcion"
+                "id Equipo", "Equipo", "Accesorios", "Descripcion"
             }
-        ));
-        jScrollPane2.setViewportView(jTable1);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabReporte.setComponentPopupMenu(jPopupMenu1);
+        tabReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabReporteMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tabReporte);
+
+        hora.setText("00:00");
+
+        jButton4.setText("Añadir + Equipo");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,22 +220,9 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(440, 440, 440)
-                        .addComponent(selecEquipo))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
+                        .addContainerGap(50, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
@@ -157,39 +232,59 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)))
+                            .addComponent(fecha)
+                            .addComponent(fecha1)
+                            .addComponent(fecha2)
+                            .addComponent(hora)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jButton2)
-                        .addGap(125, 125, 125)
-                        .addComponent(jButton3)
-                        .addGap(119, 119, 119)
-                        .addComponent(jButton1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(80, 80, 80)
+                                .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(440, 440, 440)
+                                .addComponent(selecEquipo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton4))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(jButton2)
+                                .addGap(125, 125, 125)
+                                .addComponent(jButton3)
+                                .addGap(119, 119, 119)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(60, 60, 60)
+                                .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel13)
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel14))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(9, 9, 9)
-                        .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(selecEquipo)))
                 .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel13)
+                    .addComponent(Solicitante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(selecEquipo)
+                        .addComponent(jButton4)))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel14)
+                    .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(fecha)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(hora))
                         .addGap(36, 36, 36)
                         .addComponent(jLabel4)
                         .addGap(36, 36, 36)
@@ -201,31 +296,31 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                         .addGap(6, 6, 6)
                         .addComponent(jLabel11))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addGap(50, 50, 50)
+                        .addComponent(fecha1)
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel7)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel8)))
-                .addGap(20, 20, 20)
+                        .addComponent(fecha2)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
                     .addComponent(jButton3)
                     .addComponent(jButton1))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void selecEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selecEquipoActionPerformed
-            ListaEquiUsua IE= new ListaEquiUsua();
-            IE.setVisible(true);
+            listaEquiposUsua leu= new listaEquiposUsua(usuario);
+            leu.setVisible(true);
             dispose();
     }//GEN-LAST:event_selecEquipoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-            listaReporteUsua IE= new listaReporteUsua();
-            IE.setVisible(true);
+            listaReporteUsua leu;
+            leu = new listaReporteUsua(usuario);
+            leu.setVisible(true);
             dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -237,56 +332,142 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ProyectoActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void tabReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabReporteMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_tabReporteMouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int fila;
+        fila=tabReporte.getSelectedRow();
+        ((DefaultTableModel) tabReporte.getModel()).removeRow(fila);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        String[] ides2 = new String[tabReporte.getRowCount()];
+        for(int i=0; i<=tabReporte.getRowCount()-1; i++){
+                
+            ides2[i]=(String)tabReporte.getValueAt(i, 0);  
+            }
+            /*for(int p=0; p<ides2.length; p++){
+                System.out.println(ides2[p]);
+                System.out.println("Nuevo reporte");
+            }*/
+            if(usuario)
+            {
+                listaEquiposUsua eu = new listaEquiposUsua(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
+                eu.setVisible(true);
+            }
+            else
+            {
+                listaEquipos IE= new listaEquipos(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
+                IE.setVisible(true);
+            }
+            dispose();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // imprimir
+        if(!guardado){
+            JOptionPane.showMessageDialog(this, "Tienes que guardar el reporte antes de imprimirlo");
+            return;
+        }
+        //metodo para imprimir
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporteUsua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporteUsua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporteUsua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(nuevoReporteUsua.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // guardar
+        if(guardado)
+        {
+            jButton3.setEnabled(false);
+            return;
         }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new nuevoReporteUsua().setVisible(true);
+        if(Proyecto.getText().length() <= 0)
+        {
+            JOptionPane.showMessageDialog(this, "Tienes que indicar el nombre del proyecto");
+            return;
+        }
+        if(Solicitante.getText().length() <= 0)
+        {
+            JOptionPane.showMessageDialog(this, "Tienes que indicar el nombre del Solicitante");
+            return;
+        }
+        if(tabReporte.getRowCount() <= 0 )
+        {
+            JOptionPane.showMessageDialog(this, "Selecciona el equipo a prestar");
+            return;
+        }  
+        Calendar cal=Calendar.getInstance(); 
+        java.util.Date dt = new java.util.Date();
+        java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String fechahoy = sdf.format(dt);
+        String prestador = "";
+        Calendar calendario = Calendar.getInstance();
+        Integer horaactual = calendario.get(Calendar.HOUR_OF_DAY);
+        if(horaactual < 14)
+            prestador = "admin";
+        else
+            prestador = "usuario";
+        Calendar caldevolucion = Calendar.getInstance(); 
+        caldevolucion.add(Calendar.DAY_OF_YEAR, 3);
+        String sql = "INSERT INTO `inventario`.`prestamo` (`solicitante`,`proyecto`,`fprestamo`,`fdevolucion`,`prestador`)"
+                + " VALUES('" + Solicitante.getText() +"', '"+ Proyecto.getText() +"','"+ fechahoy +"','"+ caldevolucion.get(caldevolucion.YEAR)+"-"+(caldevolucion.get(caldevolucion.MONTH)+1)+"-"+(caldevolucion.get(caldevolucion.DATE))+"','" + prestador +"')";
+        System.out.println(sql);
+        conectar con = new conectar();
+        Connection conect = con.conexion();
+        boolean res = conectar.ejecutarTransaccion(sql, conect);
+        
+        if(res)
+        {
+            JOptionPane.showMessageDialog(this, "Se ha almacenado");
+            jButton3.setEnabled(false);
+            guardado = true;
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(this, "ERROR: no se ha podido almacenar");
+            return;
+        }
+        sql = "select last_insert_id()";
+        ResultSet rs = conectar.consultar(sql, conect);  
+        Integer id = null;
+        try {
+            while(rs.next())
+            {
+                id = rs.getInt("last_insert_id()");
             }
-        });
-    }
-
+            System.out.println(id);
+        } catch (SQLException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Object[][] contenido = this.getTableData(tabReporte);
+        for(Object []fila : contenido)
+        {
+            sql = "INSERT INTO `inventario`.`presta` (`idprestamo`,`idEquipo`) VALUES ("+ id +",'" + fila[0].toString() +"')";
+            System.out.println(sql);
+            res = conectar.ejecutarTransaccion(sql, conect);
+            sql = "UPDATE `inventario`.`equipo` SET `equipoActivo` = 'inactivo' WHERE `idEquipo` = '" + fila[0].toString() + "'" ;
+            System.out.println(sql);
+            res = conectar.ejecutarTransaccion(sql, conect);
+        }
+        try {
+            conect.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
+    private javax.swing.JLabel fecha;
+    private javax.swing.JLabel fecha1;
+    private javax.swing.JLabel fecha2;
+    private javax.swing.JLabel hora;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
@@ -294,12 +475,54 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton selecEquipo;
+    private javax.swing.JTable tabReporte;
     // End of variables declaration//GEN-END:variables
+
+    
+   public void llenaTab(String[] ides){
+       int ise=ides.length;
+       conectar cc = new conectar(); // Llamar al objeto conectar 
+       Connection con = cc.conexion();//creamos la variable conexion con el metodo conexion 
+       DefaultTableModel Modelo = (DefaultTableModel) tabReporte.getModel();
+       
+       for(int c=0; c <= ise; c++){
+        try{    
+        String sql = "select idEquipo, nomEquipo, accesorios, descEquipo from equipo where idEquipo = '" +ides[c]+ "';";
+            try (CallableStatement cmd = con.prepareCall(sql)) {
+                ResultSet rs = cmd.executeQuery();
+                while (rs.next()) {
+                    Object[] datos = new Object [4];
+                    for (int i=0; i<=3; i++){
+                        datos [i] = rs.getString(i+1);
+                        //System.out.println(datos [i]);
+                        //System.out.println(rs);
+                    }
+                    Modelo.addRow(datos);
+                }   }
+            }catch(Exception ex){
+                System.out.println(ex.getMessage());
+            }
+       }
+    
+ }
+   public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
+    }
+    
+    
+    
+    
+    
+    
 }

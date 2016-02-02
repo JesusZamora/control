@@ -105,7 +105,7 @@ public final class equipo extends javax.swing.JFrame {
 
         jLabel2.setText("Nombre del Equipo :");
 
-        jLabel3.setText("Descripción del Equipo :");
+        jLabel3.setText("Descripci?n del Equipo :");
 
         jLabel5.setText("Marca :");
 
@@ -148,7 +148,7 @@ public final class equipo extends javax.swing.JFrame {
             }
         });
 
-        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Audio y Video", "Cables y Adaptadores", "Cámara", "Computación", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminación", "Mobiliario", "Óptica", "Sonido", "Textiles", "Tramoya" }));
+        Categoria.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Audio y Video", "Cables y Adaptadores", "C?mara", "Computaci?n", "Expendables", "Foto Fija", "Fundas y Estuches", "Iluminaci?n", "Mobiliario", "?ptica", "Sonido", "Textiles", "Tramoya" }));
         Categoria.setToolTipText("");
         Categoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -156,7 +156,7 @@ public final class equipo extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("Categoría :");
+        jLabel6.setText("Categor?a :");
 
         jLabel7.setText("Accesorios del Equipo :");
 

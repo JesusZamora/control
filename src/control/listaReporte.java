@@ -191,7 +191,6 @@ public class listaReporte extends javax.swing.JFrame {
             sql = "select * from prestamo where prestador = 'usuario'";
         else
             sql = "select * from prestamo";
-        
         ResultSet rs = conecta.consultar(sql, con);
         try {
             while(rs.next())
