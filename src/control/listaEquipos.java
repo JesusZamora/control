@@ -218,7 +218,7 @@ public class listaEquipos extends javax.swing.JFrame {
          int e = 0;
          for(int i=0; i<tabEquipo.getRowCount();i++)
          {
-             if((boolean)tabEquipo.getValueAt(i,7) == true)
+            if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
                    e++;
                 }
@@ -230,6 +230,7 @@ public class listaEquipos extends javax.swing.JFrame {
             {
                if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
+<<<<<<< HEAD
                     if("inactivo".compareTo((String)tabEquipo.getValueAt(i, 6)) != 0)
                     {
                         ide  = (String)tabEquipo.getValueAt(i,0);
@@ -241,6 +242,16 @@ public class listaEquipos extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, "No se puede prstar equipo inactivo");
                         return;
                     }
+=======
+                    if("inactivo".compareTo((String)tabEquipo.getValueAt(i,6)) == 0)
+                    {
+                        JOptionPane.showMessageDialog(this, "Has seleccionado un equipo inactivo, no se puede prestar");
+                        return;
+                    }
+                    ide  = (String)tabEquipo.getValueAt(i,0);
+                    ides[mnb] = ide;
+                    mnb++;                
+>>>>>>> 9e50096716d239a3f3445ac2a753f4e1a99a3e65
                 }
             }
          nuevoReporte IE= new nuevoReporte(ides,proyecto,solicitante,usuario);
