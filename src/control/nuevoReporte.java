@@ -25,6 +25,7 @@ public class nuevoReporte extends javax.swing.JFrame {
         initComponents();
         guardado = false;
         this.usuario = usuario;
+        System.out.println("USUARIO : " + usuario);
         Calendar cal=Calendar.getInstance(); 
         String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
         String fecha1=(cal.get(cal.DATE)+3)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR);
@@ -39,6 +40,7 @@ public class nuevoReporte extends javax.swing.JFrame {
     public nuevoReporte(String[] ides, boolean usuario) {
         initComponents();
         this.usuario = usuario;
+        System.out.println("USUARIO : " + usuario);
         llenaTab(ides);
         Calendar cal=Calendar.getInstance(); 
         String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
@@ -55,6 +57,7 @@ public class nuevoReporte extends javax.swing.JFrame {
     nuevoReporte(String[] ides, String proyecto, String solicitante, boolean usuario) {
         initComponents();
         this.usuario = usuario;
+        System.out.println("USUARIO : " + usuario);
         llenaTab(ides);
         Calendar cal=Calendar.getInstance(); 
         String fecha=cal.get(cal.DATE)+"/"+(ca­l.get(cal.MONTH)+1)+"/"+cal.get(c­al.YEAR); 
@@ -353,7 +356,7 @@ public class nuevoReporte extends javax.swing.JFrame {
             }*/
             if(usuario)
             {
-                ListaEquiUsua eu = new ListaEquiUsua(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
+                listaEquiposUsua eu = new listaEquiposUsua(ides2,Proyecto.getText(),Solicitante.getText(),usuario);
                 eu.setVisible(true);
             }
             else

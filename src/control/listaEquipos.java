@@ -230,9 +230,17 @@ public class listaEquipos extends javax.swing.JFrame {
             {
                if((boolean)tabEquipo.getValueAt(i,7) == true)
                 {
-                ide  = (String)tabEquipo.getValueAt(i,0);
-                ides[mnb] = ide;
-                mnb++;                
+                    if("inactivo".compareTo((String)tabEquipo.getValueAt(i, 6)) != 0)
+                    {
+                        ide  = (String)tabEquipo.getValueAt(i,0);
+                        ides[mnb] = ide;
+                        mnb++;                
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(this, "No se puede prstar equipo inactivo");
+                        return;
+                    }
                 }
             }
          nuevoReporte IE= new nuevoReporte(ides,proyecto,solicitante,usuario);
@@ -374,7 +382,7 @@ public class listaEquipos extends javax.swing.JFrame {
 
         try{    
         String sql = "select idEquipo, nomEquipo, Categoria, accesorios, descEquipo,"
-                + "marcaEquipo, equipoActivo from equipo WHERE equipoActivo = 'activo'  order by IdEquipo;";
+                + "marcaEquipo, equipoActivo from equipo  order by IdEquipo;";
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
