@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -373,11 +374,34 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // imprimir
+            // imprimir
         if(!guardado){
             JOptionPane.showMessageDialog(this, "Tienes que guardar el reporte antes de imprimirlo");
             return;
         }
+        JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
         //metodo para imprimir
     }//GEN-LAST:event_jButton1ActionPerformed
 

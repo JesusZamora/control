@@ -5,11 +5,20 @@
  */
 package control;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -54,6 +63,11 @@ public class listaReporteUsua extends javax.swing.JFrame {
         });
 
         jButton3.setText("Imprimir");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         pPrincipal.setText("Pantalla Principal");
         pPrincipal.addActionListener(new java.awt.event.ActionListener() {
@@ -146,6 +160,31 @@ public class listaReporteUsua extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,4 +262,37 @@ public class listaReporteUsua extends javax.swing.JFrame {
                 tableData[i][j] = dtm.getValueAt(i,j);
         return tableData;
     }
+    private boolean generapdf(String path) throws DocumentException, FileNotFoundException {
+        boolean estado = false;
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        Paragraph paragraph1 = new Paragraph("Prestamos");
+        document.add(paragraph1);
+        Paragraph paragraph2 = new Paragraph("");
+        paragraph2.setSpacingBefore(38f);
+        document.add(paragraph2);
+        PdfPTable table = new PdfPTable(7);
+        table.addCell("Id reporte");
+        table.addCell("Solicitante");
+        table.addCell("Proyecto");
+        table.addCell("Fecha prestamo");
+        table.addCell("Fecha devolucion");
+        table.addCell("Fecha real");
+        table.addCell("prestador");
+        Object[][] tabla = this.getTableData(reportes);
+        for(Object[] o : tabla)
+            for(Object e: o)
+            {
+                if(e != null)
+                    table.addCell((String) e.toString());
+                else
+                    table.addCell("");
+            }
+        
+        document.add(table);
+        document.close();
+        return true;
+    }
+
 }
