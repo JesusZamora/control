@@ -4,6 +4,15 @@ package control;
  *
  * @author Jesus Ariel
  */
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,6 +20,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -373,6 +383,29 @@ public class nuevoReporte extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tienes que guardar el reporte antes de imprimirlo");
             return;
         }
+        JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        
         //metodo para imprimir
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -524,7 +557,20 @@ public class nuevoReporte extends javax.swing.JFrame {
     
     
     
-    
+    public boolean generapdf(String path) throws DocumentException, FileNotFoundException
+    {
+        boolean estado = false;
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        PdfPTable table = new PdfPTable(8);
+        for(int aw = 0; aw < 16; aw++){
+            table.addCell("hi");
+        }
+        document.add(table);
+        document.close();
+        return estado;
+    }
     
     
 }
