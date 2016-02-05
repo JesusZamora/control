@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -209,5 +210,14 @@ public class listaReporte extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(listaReporte.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
     }
 }

@@ -4,6 +4,13 @@ package control;
  *
  * @author Jesus Ariel
  */
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -95,8 +102,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         fecha = new javax.swing.JLabel();
         fecha1 = new javax.swing.JLabel();
         fecha2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        clausula1 = new javax.swing.JLabel();
+        clausula2 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         Solicitante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
@@ -158,9 +165,9 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
 
         fecha2.setText("00/00/00");
 
-        jLabel9.setText("Clausula 1");
+        clausula1.setText("Clausula 1");
 
-        jLabel10.setText("Clausula 2");
+        clausula2.setText("Clausula 2");
 
         jLabel11.setText("Clausula 3");
 
@@ -227,8 +234,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
+                            .addComponent(clausula1)
+                            .addComponent(clausula2)
                             .addComponent(jLabel11))
                         .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,9 +297,9 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                         .addGap(36, 36, 36)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(40, 40, 40)
-                        .addComponent(jLabel9)
+                        .addComponent(clausula1)
                         .addGap(6, 6, 6)
-                        .addComponent(jLabel10)
+                        .addComponent(clausula2)
                         .addGap(6, 6, 6)
                         .addComponent(jLabel11))
                     .addGroup(layout.createSequentialGroup()
@@ -460,6 +467,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
+    private javax.swing.JLabel clausula1;
+    private javax.swing.JLabel clausula2;
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel fecha1;
     private javax.swing.JLabel fecha2;
@@ -468,14 +477,12 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -519,7 +526,45 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                 tableData[i][j] = dtm.getValueAt(i,j);
         return tableData;
     }
-    
+    public boolean generapdf(String path) throws DocumentException, FileNotFoundException
+    {
+        boolean estado = false;
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        Paragraph paragraph1 = new Paragraph("Solicitante: " + Solicitante.getText());
+        Paragraph paragraph2 = new Paragraph("Proyecto: " + Proyecto.getText());
+        Paragraph paragraph3 = new Paragraph("Fecha y hora del prestamo: " + fecha.getText() + " " + hora.getText());
+        Paragraph paragraph4 = new Paragraph("Fecha de entrega: " + fecha1.getText());
+        Paragraph paragraph5 = new Paragraph("Clausula 1: " + clausula1.getText());
+         Paragraph paragraph6 = new Paragraph("Clausula 2: " + clausula2.getText());
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(paragraph4);
+        document.add(paragraph5);
+        document.add(paragraph6);
+        document.add(new Paragraph(""));
+        PdfPTable table = new PdfPTable(4);
+        table.addCell("Id Equipo");
+        table.addCell("Equipo");
+        table.addCell("Accesorios");
+        table.addCell("Descripcion");
+        Object[][] tabla = this.getTableData(tabReporte);
+        for(Object[] o : tabla)
+            for(Object e: o)
+            {
+                table.addCell((String) e);
+            }
+        
+        document.add(table);
+        PdfPTable firma = new PdfPTable(1);
+        firma.addCell("Firma");
+        document.add(new Paragraph(""));
+        document.add(firma);
+        document.close();
+        return true;
+    }
     
     
     

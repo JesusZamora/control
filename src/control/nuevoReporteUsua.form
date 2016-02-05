@@ -52,8 +52,8 @@
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                          <Component id="clausula1" min="-2" max="-2" attributes="0"/>
+                          <Component id="clausula2" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
@@ -130,9 +130,9 @@
                       <EmptySpace min="36" pref="36" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="40" pref="40" max="-2" attributes="0"/>
-                      <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
+                      <Component id="clausula1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
-                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
+                      <Component id="clausula2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -217,12 +217,12 @@
         <Property name="text" type="java.lang.String" value="00/00/00"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel9">
+    <Component class="javax.swing.JLabel" name="clausula1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clausula 1"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="clausula2">
       <Properties>
         <Property name="text" type="java.lang.String" value="Clausula 2"/>
       </Properties>
