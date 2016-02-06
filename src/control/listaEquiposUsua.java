@@ -5,6 +5,13 @@
  */
 package control;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -457,4 +464,54 @@ public class listaEquiposUsua extends javax.swing.JFrame {
           }
       }
   }
+  public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
+    }
+  private boolean generapdf(String path) throws DocumentException, FileNotFoundException {
+        boolean estado = false;
+        Document document = new Document();
+        //OutputStreamWriter destino = new OutputStreamWriter(fos,"ISO-8859-1");
+        
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        Paragraph paragraph1 = new Paragraph("Equipos");
+        document.add(paragraph1);
+        Paragraph paragraph2 = new Paragraph("");
+        paragraph2.setSpacingBefore(38f);
+        document.add(paragraph2);
+        PdfPTable table = new PdfPTable(7);
+        table.addCell("Id ");
+        table.addCell("Nombre");
+        table.addCell("categoria");
+        table.addCell("Accesorios");
+        table.addCell("Descripcion");
+        table.addCell("Marca");
+        table.addCell("Estado");
+        Object[][] tabla = this.getTableData(tabEquipo);
+        for(Object[] o : tabla)
+        {
+            int i = 0;
+            for(Object e: o)
+            {
+                if(i <= 6 )
+                {
+                    if(e != null)
+                        table.addCell((String) e.toString());
+                    else
+                        table.addCell("");
+                }
+                i++;
+            }
+        }
+        document.add(table);
+        document.close();
+        return true;
+    }
+
 }

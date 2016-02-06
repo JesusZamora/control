@@ -5,6 +5,13 @@
  */
 package control;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -85,6 +94,7 @@ public class listaEquipos extends javax.swing.JFrame {
         Categoria = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LISTA DE EQUIPOS");
@@ -161,6 +171,13 @@ public class listaEquipos extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Imprimir");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,8 +196,10 @@ public class listaEquipos extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
-                        .addGap(91, 91, 91))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 709, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -197,9 +216,15 @@ public class listaEquipos extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
@@ -334,11 +359,37 @@ public class listaEquipos extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Categoria;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -462,4 +513,51 @@ public class listaEquipos extends javax.swing.JFrame {
           }
       }
   }
+public Object[][] getTableData (JTable table) {
+        DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+        int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
+        Object[][] tableData = new Object[nRow][nCol];
+        for (int i = 0 ; i < nRow ; i++)
+            for (int j = 0 ; j < nCol ; j++)
+                tableData[i][j] = dtm.getValueAt(i,j);
+        return tableData;
+    }
+    private boolean generapdf(String path) throws DocumentException, FileNotFoundException {
+        boolean estado = false;
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        Paragraph paragraph1 = new Paragraph("Equipos");
+        document.add(paragraph1);
+        Paragraph paragraph2 = new Paragraph("");
+        paragraph2.setSpacingBefore(38f);
+        document.add(paragraph2);
+        PdfPTable table = new PdfPTable(7);
+        table.addCell("Id ");
+        table.addCell("Nombre");
+        table.addCell("categoria");
+        table.addCell("Accesorios");
+        table.addCell("Descripcion");
+        table.addCell("Marca");
+        table.addCell("Estado");
+        Object[][] tabla = this.getTableData(tabEquipo);
+        for(Object[] o : tabla)
+        {
+            int i = 0;
+            for(Object e: o)
+            {
+                if(i <= 6 )
+                {
+                    if(e != null)
+                        table.addCell((String) e.toString());
+                    else
+                        table.addCell("");
+                }
+                i++;
+            }
+        }
+        document.add(table);
+        document.close();
+        return true;
+    }
 }
