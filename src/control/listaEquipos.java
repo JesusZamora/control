@@ -12,6 +12,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.nio.charset.Charset;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  *
@@ -437,14 +439,15 @@ public class listaEquipos extends javax.swing.JFrame {
             try (CallableStatement cmd = con.prepareCall(sql)) {
                 ResultSet rs = cmd.executeQuery();
                 while (rs.next()) {
-                    Object[] datos = new Object [7];
+                    Object[] datos = new String [7];
                     for (int i=0; i<=6; i++){
                         datos [i] = rs.getString(i+1);
                         //System.out.println(datos [i]);
                         //System.out.println(rs);
                     }
                     Modelo.addRow(datos);
-                }   }
+                }   
+            }
         con.close();
     }catch(Exception ex){
         System.out.println(ex.getMessage());
@@ -549,7 +552,7 @@ public Object[][] getTableData (JTable table) {
                 if(i <= 6 )
                 {
                     if(e != null)
-                        table.addCell((String) e.toString());
+                        table.addCell(((String) e.toString()));
                     else
                         table.addCell("");
                 }
@@ -560,4 +563,28 @@ public Object[][] getTableData (JTable table) {
         document.close();
         return true;
     }
+    public static String convertUnicodePoints(String input) {
+    // getting char array from input
+    char[] chars =  input.toCharArray();
+    // initializing output
+    StringBuilder sb = new StringBuilder();
+    // iterating input chars
+    for (int i = 0; i < input.length(); i++) {
+        // checking character code point to infer whether "conversion" is required
+        // here, picking an arbitrary code point 125 as boundary
+        if (Character.codePointAt(input, i) < 125) {
+            sb.append(chars[i]);
+        }
+        // need to "convert", code point > boundary
+        else {
+            // for hex representation: prepends as many 0s as required
+            // to get a hex string of the char code point, 4 characters long
+            // sb.append(String.format("&#xu%04X;", (int)chars[i]));
+
+            // for decimal representation, which is what you want here
+            sb.append(String.format("&#%d;", (int)chars[i]));
+        }
+    }
+    return sb.toString();
+}
 }

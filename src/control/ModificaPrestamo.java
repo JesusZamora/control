@@ -5,6 +5,18 @@
  */
 package control;
 
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Calendar;
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,6 +26,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -106,9 +119,8 @@ public class ModificaPrestamo extends javax.swing.JFrame {
         fecha = new javax.swing.JLabel();
         fecha1 = new javax.swing.JLabel();
         fecha2 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        label1 = new javax.swing.JLabel();
+        label2 = new javax.swing.JLabel();
         Solicitante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         Proyecto = new javax.swing.JTextField();
@@ -117,6 +129,10 @@ public class ModificaPrestamo extends javax.swing.JFrame {
         tabReporte = new javax.swing.JTable();
         hora = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        clausula1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        clausula2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -153,11 +169,9 @@ public class ModificaPrestamo extends javax.swing.JFrame {
 
         fecha2.setText("00/00/00");
 
-        jLabel9.setText("Clausula 1");
+        label1.setText("Clausula 1");
 
-        jLabel10.setText("Clausula 2");
-
-        jLabel11.setText("Clausula 3");
+        label2.setText("Clausula 2");
 
         Solicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,29 +221,22 @@ public class ModificaPrestamo extends javax.swing.JFrame {
             }
         });
 
+        clausula1.setColumns(20);
+        clausula1.setRows(5);
+        clausula1.setText("En caso de que el equipo presente algún desperfecto en su funcionamiento o apariencia el solicitante se hará responsable de pagar los costos generados por su reparación o reposición.");
+        jScrollPane1.setViewportView(clausula1);
+
+        clausula2.setColumns(20);
+        clausula2.setRows(5);
+        clausula2.setText("En caso de que el equipo presente algún desperfecto en su funcionamiento o apariencia el solicitante se hará responsable de pagar los costos generados por su reparación o reposición.");
+        jScrollPane3.setViewportView(clausula2);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(38, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11))
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fecha)
-                            .addComponent(fecha1)
-                            .addComponent(fecha2)
-                            .addComponent(hora)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -251,8 +258,32 @@ public class ModificaPrestamo extends javax.swing.JFrame {
                                 .addComponent(jButton1)
                                 .addGap(108, 108, 108)
                                 .addComponent(jButton4)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 471, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(68, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(label1)
+                                    .addComponent(label2))
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fecha)
+                                    .addComponent(fecha1)
+                                    .addComponent(fecha2)
+                                    .addComponent(hora))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,24 +302,28 @@ public class ModificaPrestamo extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(hora))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel4)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel9)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel10)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(fecha1)
-                        .addGap(36, 36, 36)
-                        .addComponent(fecha2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(hora))
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel4)
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(40, 40, 40)
+                                .addComponent(label1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(fecha1)
+                                .addGap(36, 36, 36)
+                                .addComponent(fecha2)))
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
@@ -302,8 +337,29 @@ public class ModificaPrestamo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // imprimir
-        //metodo para imprimir
+       
+        JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -397,6 +453,8 @@ public class ModificaPrestamo extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
+    private javax.swing.JTextArea clausula1;
+    private javax.swing.JTextArea clausula2;
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel fecha1;
     private javax.swing.JLabel fecha2;
@@ -405,15 +463,16 @@ public class ModificaPrestamo extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
     private javax.swing.JTable tabReporte;
     // End of variables declaration//GEN-END:variables
 public Object[][] getTableData (JTable table) {
@@ -424,5 +483,72 @@ public Object[][] getTableData (JTable table) {
             for (int j = 0 ; j < nCol ; j++)
                 tableData[i][j] = dtm.getValueAt(i,j);
         return tableData;
+    }
+
+public boolean generapdf(String path) throws DocumentException, FileNotFoundException
+    {
+        boolean estado = false;
+        Document document = new Document();
+        PdfWriter.getInstance(document, new FileOutputStream(path));
+        document.open();
+        
+        Image img = null;
+        try {
+            img = Image.getInstance("src/img/imgen.jpg");
+            img.scaleAbsolute(80f,50f);
+            img.setAbsolutePosition(470f, 750f);
+            document.add(img);
+        } catch (BadElementException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        Paragraph paragraph1 = new Paragraph("Solicitante: " + Solicitante.getText());
+        Paragraph paragraph2 = new Paragraph("Proyecto: " + Proyecto.getText());
+        Paragraph paragraph3 = new Paragraph("Fecha y hora del prestamo: " + fecha.getText() + " " + hora.getText());
+        Paragraph paragraph4 = new Paragraph("Fecha de entrega: " + fecha1.getText());
+        
+        document.add(paragraph1);
+        document.add(paragraph2);
+        document.add(paragraph3);
+        document.add(paragraph4);
+        Paragraph tmp = new Paragraph("");
+        tmp.setSpacingBefore(10);
+        document.add(tmp);
+        PdfPTable table = new PdfPTable(4);
+        table.addCell("Id Equipo");
+        table.addCell("Equipo");
+        table.addCell("Accesorios");
+        table.addCell("Descripcion");
+        Object[][] tabla = this.getTableData(tabReporte);
+        for(Object[] o : tabla)
+            for(Object e: o)
+            {
+                table.addCell((String) e);
+            }
+        
+        document.add(table);
+        System.out.println(clausula1.getText() + " " + clausula2.getText());
+        Paragraph paragraph5 = new Paragraph("Clausula 1: " + clausula1.getText());
+         Paragraph paragraph6 = new Paragraph("Clausula 2: " + clausula2.getText());
+        document.add(paragraph5);
+        document.add(paragraph6);
+        tmp = new Paragraph("");
+        tmp.setSpacingBefore(10);
+        document.add(tmp);
+        Paragraph p = new Paragraph("Firma del solicitante: ");
+        p.add(new Chunk(new DottedLineSeparator()));
+        p.add("   Firma del prestador: ");
+        p.add(new Chunk(new DottedLineSeparator()));
+        document.add(p);
+        
+        //PdfPTable firma = new PdfPTable(1);
+        //firma.addCell("Firma");
+        //document.add(new Paragraph(""));
+        //document.add(firma);
+        document.close();
+        return true;
     }
 }

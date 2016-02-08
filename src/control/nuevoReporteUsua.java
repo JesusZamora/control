@@ -4,13 +4,18 @@ package control;
  *
  * @author Jesus Ariel
  */
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.draw.DottedLineSeparator;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -103,9 +108,6 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         fecha = new javax.swing.JLabel();
         fecha1 = new javax.swing.JLabel();
         fecha2 = new javax.swing.JLabel();
-        clausula1 = new javax.swing.JLabel();
-        clausula2 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         Solicitante = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         Proyecto = new javax.swing.JTextField();
@@ -114,6 +116,12 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         tabReporte = new javax.swing.JTable();
         hora = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        label1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        clausula1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        clausula2 = new javax.swing.JTextArea();
+        label2 = new javax.swing.JLabel();
 
         jMenuItem1.setText("Eliminar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -166,12 +174,6 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
 
         fecha2.setText("00/00/00");
 
-        clausula1.setText("Clausula 1");
-
-        clausula2.setText("Clausula 2");
-
-        jLabel11.setText("Clausula 3");
-
         Solicitante.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SolicitanteActionPerformed(evt);
@@ -221,29 +223,26 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
             }
         });
 
+        label1.setText("Clausula 1");
+
+        clausula1.setColumns(20);
+        clausula1.setRows(5);
+        clausula1.setText("En caso de que el equipo presente algún desperfecto en su funcionamiento o apariencia el solicitante se hará responsable de pagar los costos generados por su reparación o reposición.");
+        jScrollPane1.setViewportView(clausula1);
+
+        clausula2.setColumns(20);
+        clausula2.setRows(5);
+        clausula2.setText("En caso de que el equipo presente algún desperfecto en su funcionamiento o apariencia el solicitante se hará responsable de pagar los costos generados por su reparación o reposición.");
+        jScrollPane3.setViewportView(clausula2);
+
+        label2.setText("Clausula 2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(50, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(clausula1)
-                            .addComponent(clausula2)
-                            .addComponent(jLabel11))
-                        .addGap(47, 47, 47)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(fecha)
-                            .addComponent(fecha1)
-                            .addComponent(fecha2)
-                            .addComponent(hora)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -267,8 +266,33 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(20, 20, 20)
                                 .addComponent(Proyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(0, 25, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(50, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 920, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 30, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(47, 47, 47)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fecha)
+                                    .addComponent(fecha1)
+                                    .addComponent(fecha2)
+                                    .addComponent(hora))
+                                .addGap(0, 5, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(label1)
+                                    .addComponent(label2))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -290,24 +314,28 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(hora))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel4)
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(40, 40, 40)
-                        .addComponent(clausula1)
-                        .addGap(6, 6, 6)
-                        .addComponent(clausula2)
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel11))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(fecha1)
-                        .addGap(36, 36, 36)
-                        .addComponent(fecha2)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(hora))
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel4)
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(fecha1)
+                                .addGap(36, 36, 36)
+                                .addComponent(fecha2)))
+                        .addGap(18, 18, 18)
+                        .addComponent(label1)
+                        .addGap(1, 1, 1)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(label2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton2)
@@ -491,8 +519,8 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Proyecto;
     private javax.swing.JTextField Solicitante;
-    private javax.swing.JLabel clausula1;
-    private javax.swing.JLabel clausula2;
+    private javax.swing.JTextArea clausula1;
+    private javax.swing.JTextArea clausula2;
     private javax.swing.JLabel fecha;
     private javax.swing.JLabel fecha1;
     private javax.swing.JLabel fecha2;
@@ -501,7 +529,6 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel3;
@@ -509,7 +536,11 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel label1;
+    private javax.swing.JLabel label2;
     private javax.swing.JButton selecEquipo;
     private javax.swing.JTable tabReporte;
     // End of variables declaration//GEN-END:variables
@@ -556,19 +587,32 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
         Document document = new Document();
         PdfWriter.getInstance(document, new FileOutputStream(path));
         document.open();
+        
+        Image img = null;
+        try {
+            img = Image.getInstance("src/img/imgen.jpg");
+            img.scaleAbsolute(80f,50f);
+            img.setAbsolutePosition(470f, 750f);
+            document.add(img);
+        } catch (BadElementException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         Paragraph paragraph1 = new Paragraph("Solicitante: " + Solicitante.getText());
         Paragraph paragraph2 = new Paragraph("Proyecto: " + Proyecto.getText());
         Paragraph paragraph3 = new Paragraph("Fecha y hora del prestamo: " + fecha.getText() + " " + hora.getText());
         Paragraph paragraph4 = new Paragraph("Fecha de entrega: " + fecha1.getText());
-        Paragraph paragraph5 = new Paragraph("Clausula 1: " + clausula1.getText());
-         Paragraph paragraph6 = new Paragraph("Clausula 2: " + clausula2.getText());
+        
         document.add(paragraph1);
         document.add(paragraph2);
         document.add(paragraph3);
         document.add(paragraph4);
-        document.add(paragraph5);
-        document.add(paragraph6);
-        document.add(new Paragraph(""));
+        Paragraph tmp = new Paragraph("");
+        tmp.setSpacingBefore(10);
+        document.add(tmp);
         PdfPTable table = new PdfPTable(4);
         table.addCell("Id Equipo");
         table.addCell("Equipo");
@@ -582,10 +626,24 @@ public class nuevoReporteUsua extends javax.swing.JFrame {
             }
         
         document.add(table);
-        PdfPTable firma = new PdfPTable(1);
-        firma.addCell("Firma");
-        document.add(new Paragraph(""));
-        document.add(firma);
+        System.out.println(clausula1.getText() + " " + clausula2.getText());
+        Paragraph paragraph5 = new Paragraph("Clausula 1: " + clausula1.getText());
+         Paragraph paragraph6 = new Paragraph("Clausula 2: " + clausula2.getText());
+        document.add(paragraph5);
+        document.add(paragraph6);
+        tmp = new Paragraph("");
+        tmp.setSpacingBefore(10);
+        document.add(tmp);
+        Paragraph p = new Paragraph("Firma del solicitante: ");
+        p.add(new Chunk(new DottedLineSeparator()));
+        p.add("   Firma del prestador: ");
+        p.add(new Chunk(new DottedLineSeparator()));
+        document.add(p);
+        
+        //PdfPTable firma = new PdfPTable(1);
+        //firma.addCell("Firma");
+        //document.add(new Paragraph(""));
+        //document.add(firma);
         document.close();
         return true;
     }
