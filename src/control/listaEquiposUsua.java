@@ -19,9 +19,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRichTextString;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 /**
  *
@@ -92,6 +99,7 @@ public class listaEquiposUsua extends javax.swing.JFrame {
         Categoria = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("LISTA DE EQUIPOS");
@@ -168,6 +176,13 @@ public class listaEquiposUsua extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Excel");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -186,8 +201,10 @@ public class listaEquiposUsua extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 707, Short.MAX_VALUE)
-                        .addGap(91, 91, 91))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton2)
+                        .addGap(12, 12, 12))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -204,9 +221,15 @@ public class listaEquiposUsua extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(26, 26, 26)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
+                        .addGap(26, 26, 26))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addComponent(jButton2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1)
@@ -336,11 +359,37 @@ public class listaEquiposUsua extends javax.swing.JFrame {
          }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       JFileChooser jf = new JFileChooser();
+        int res = jf.showSaveDialog(this);
+        if(res == JFileChooser.APPROVE_OPTION)
+        {
+            String path = jf.getSelectedFile() + ".pdf";
+            System.out.println( "Archivo " + path );
+            try {
+                if(this.generapdf(path))
+                {
+                    JOptionPane.showMessageDialog(this, "Se ha almacenado el archivo ");
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(this, "No se ha almacenado el archivo ");
+                }    
+            } catch (DocumentException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(nuevoReporte.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox Categoria;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -513,5 +562,79 @@ public class listaEquiposUsua extends javax.swing.JFrame {
         document.close();
         return true;
     }
+  
+  
+    private boolean generaExcel(String path) {
+        // Se crea el libro
+        HSSFWorkbook libro = new HSSFWorkbook();
+
+        // Se crea una hoja dentro del libro
+        HSSFSheet hoja = libro.createSheet("Equipos");
+
+        // Se crea una fila dentro de la hoja
+        HSSFRow fila = hoja.createRow(0);
+
+        // Se crea una celda dentro de la fila
+        HSSFCell celda = fila.createCell((short) 0);
+        HSSFRichTextString texto = new HSSFRichTextString("Id ");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 1);
+        texto = new HSSFRichTextString("Nombre");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 2);
+        texto = new HSSFRichTextString("Categoria");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 3);
+        texto = new HSSFRichTextString("Accesorios");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 4);
+        texto = new HSSFRichTextString("Descripcion");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 5);
+        texto = new HSSFRichTextString("Marca");
+        celda.setCellValue(texto);
+        celda = fila.createCell((short) 6);
+        texto = new HSSFRichTextString("Estado");
+        celda.setCellValue(texto);
+        
+        int nr = 1;
+        Object[][] tabla = this.getTableData(tabEquipo);
+        for(Object[] o : tabla)
+        {
+            fila = hoja.createRow(nr);
+            int i = 0;
+            for(Object e: o)
+            {
+                celda = fila.createCell((short) i);
+                if(i <= 6 )
+                {
+                    if(e != null)
+                    {
+                        texto = new HSSFRichTextString((String) e.toString());
+                    }
+                    else
+                    {
+                        texto = new HSSFRichTextString("");
+                        
+                    }
+                    celda.setCellValue(texto);
+                }
+                i++;
+            }
+            nr++;
+        }
+        
+
+        // Se salva el libro.
+        try {
+            FileOutputStream elFichero = new FileOutputStream(path);
+            libro.write(elFichero);
+            elFichero.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
 
 }
