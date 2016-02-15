@@ -6,6 +6,7 @@ public class conectar {
 Connection conect = null;   
     public static final String USER = "root";
     public static final String PASS = "12345";
+    //public static final String PASS = "";
     public static final String DBNAME = "inventario";
    public Connection conexion()
     {

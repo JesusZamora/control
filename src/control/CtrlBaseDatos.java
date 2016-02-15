@@ -16,6 +16,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class CtrlBaseDatos extends javax.swing.JDialog {
     String pathMysql = "C:\\xampp\\mysql\\bin\\";
+    //String pathMysql = "C:\\AppServ\\MySQL\\bin\\";
     /**
      * Creates new form CtrlBaseDatos
      */
@@ -227,6 +228,7 @@ public class CtrlBaseDatos extends javax.swing.JDialog {
     private void restaurar(String sqlFile){
         System.out.println("[x]Empezando la restauracion..." + sqlFile);
         String[] restoreCmd = new String[]{pathMysql + "mysql", "--user=" + conectar.USER, "--password=" + conectar.PASS, "-e", "source " + sqlFile};
+        //String[] restoreCmd = new String[]{pathMysql + "mysql", "--user=" + conectar.USER, "-e", "source " + sqlFile};
         System.out.println(restoreCmd.toString());
         Process runtimeProcess;
         try {
