@@ -15,8 +15,8 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  * @author dns
  */
 public class CtrlBaseDatos extends javax.swing.JDialog {
-    String pathMysql = "C:\\xampp\\mysql\\bin\\";
-    //String pathMysql = "C:\\AppServ\\MySQL\\bin\\";
+    //String pathMysql = "C:\\xampp\\mysql\\bin\\";
+    String pathMysql = "C:\\AppServ\\MySQL\\bin\\";
     /**
      * Creates new form CtrlBaseDatos
      */
@@ -209,8 +209,8 @@ public class CtrlBaseDatos extends javax.swing.JDialog {
     private void respaldar(String sqlFile) {
         System.out.println("[x]Empezando el respaldo..."  + sqlFile);
         Process p = null;
-        //String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " -p" + conectar.PASS + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
-        String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
+        String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " -p" + conectar.PASS + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
+        //String ejecutar = "\"" + pathMysql + "mysqldump\" -u " + conectar.USER + " --add-drop-database -B " + conectar.DBNAME + " -r " + sqlFile;
         System.out.println(ejecutar);
         try {
             Runtime runtime = Runtime.getRuntime();
@@ -237,9 +237,9 @@ public class CtrlBaseDatos extends javax.swing.JDialog {
             int processComplete = runtimeProcess.waitFor();
  
             if (processComplete == 0) {
-                System.out.println("Restaurando la Base de Datos");
+                JOptionPane.showMessageDialog(this, "Se Restauró la Base de Datos");
             } else {
-                System.out.println("No se ha podido restaurar la BD");
+                JOptionPane.showMessageDialog(this, "No se pudo Restaurar la Base de Datos");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
